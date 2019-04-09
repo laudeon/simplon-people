@@ -5,7 +5,8 @@ const state = {
   email: '',
   jobTitle: '',
   district: '',
-  description: ''
+  description: '',
+  logged: false
 }
 
 const getters = {
@@ -17,7 +18,9 @@ const actions = {
 }
 
 const mutations = {
-
+  signIn (state, payload) {
+    state.logged = payload
+  }
 }
 
 export default {

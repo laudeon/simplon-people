@@ -10,3 +10,8 @@ export default {
   name: 'sidebar'
 }
 </script>
+
+<style lang="sass" scoped>
+
+</style>
+

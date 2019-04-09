@@ -2,19 +2,22 @@
   <div id="app">
     <Searchbar />
     <Sidebar />
-    <router-view/>
+    <GoogleSingIn />
+    <router-view v-if="$store.state.me.logged === true" />
   </div>
 </template>
 
 <script>
 import Sidebar from '@/components/Sidebar.vue'
 import Searchbar from '@/components/Searchbar.vue'
+import GoogleSingIn from '@/components/GoogleSignIn.vue'
 
 export default {
   name: 'app',
   components: {
     Sidebar,
-    Searchbar
+    Searchbar,
+    GoogleSingIn
   }
 }
 </script>
