@@ -2875,20 +2875,15 @@ core-js-pure@3.0.0:
   resolved "https://registry.yarnpkg.com/core-js-pure/-/core-js-pure-3.0.0.tgz#a5679adb4875427c8c0488afc93e6f5b7125859b"
   integrity sha512-yPiS3fQd842RZDgo/TAKGgS0f3p2nxssF1H65DIZvZv0Od5CygP8puHXn3IQiM/39VAvgCbdaMQpresrbGgt9g==
 
-core-js@3:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.0.1.tgz#1343182634298f7f38622f95e73f54e48ddf4738"
-  integrity sha512-sco40rF+2KlE0ROMvydjkrVMMG1vYilP2ALoRXcYR4obqbYIuV3Bg+51GEDW+HF8n7NRA+iaA4qD0nD9lo9mew==
+core-js@2, core-js@^2.4.0, core-js@^2.5.0, core-js@^2.6.5:
+  version "2.6.5"
+  resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.5.tgz#44bc8d249e7fb2ff5d00e0341a7ffb94fbf67895"
+  integrity sha512-klh/kDpwX8hryYL14M9w/xei6vrv6sE8gTHDG7/T/+SEovB/G4ejwcfE/CBzO6Edsu+OETZMZ3wcX/EjUkrl5A==
 
 core-js@3.0.0:
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-3.0.0.tgz#a8dbfa978d29bfc263bfb66c556d0ca924c28957"
   integrity sha512-WBmxlgH2122EzEJ6GH8o9L/FeoUKxxxZ6q6VUxoTlsE4EvbTWKJb447eyVxTEuq0LpXjlq/kCB2qgBvsYRkLvQ==
-
-core-js@^2.4.0, core-js@^2.5.0, core-js@^2.6.5:
-  version "2.6.5"
-  resolved "https://registry.yarnpkg.com/core-js/-/core-js-2.6.5.tgz#44bc8d249e7fb2ff5d00e0341a7ffb94fbf67895"
-  integrity sha512-klh/kDpwX8hryYL14M9w/xei6vrv6sE8gTHDG7/T/+SEovB/G4ejwcfE/CBzO6Edsu+OETZMZ3wcX/EjUkrl5A==
 
 core-util-is@1.0.2, core-util-is@~1.0.0:
   version "1.0.2"
@@ -10313,6 +10308,11 @@ vue-eslint-parser@^5.0.0:
     esquery "^1.0.1"
     lodash "^4.17.11"
 
+vue-flash-message@^0.7.2:
+  version "0.7.2"
+  resolved "https://registry.yarnpkg.com/vue-flash-message/-/vue-flash-message-0.7.2.tgz#0668d6fa9fc70c65fd5c6ec246a415786960c34d"
+  integrity sha512-swOK9PxlWKzt1zzAMJX4YMU2O3kS0JznbwLy8burtKK2vibYc7ODRiEdAVnxRDQ09TG4tElVeO3hwwGDxQktaw==
+
 vue-google-api@^0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/vue-google-api/-/vue-google-api-0.1.4.tgz#c78a2c2649de6054fe339e96672f7110525be71a"
@@ -10351,6 +10351,11 @@ vue-loader@^15.6.4:
     loader-utils "^1.1.0"
     vue-hot-reload-api "^2.3.0"
     vue-style-loader "^4.1.0"
+
+vue-loading-overlay@^3.2.0:
+  version "3.2.0"
+  resolved "https://registry.yarnpkg.com/vue-loading-overlay/-/vue-loading-overlay-3.2.0.tgz#7896f195e26a8d915219139a096367c9ad2c3c61"
+  integrity sha512-QBHa+vwcQ3k3oKp4pucP7RHWHSQvgVWFlDFqSaXLu+kCuEv1PZCoerAo1T04enF5y9yMFCqh7L9ChrWHy7HYvA==
 
 vue-router@^3.0.1:
   version "3.0.2"

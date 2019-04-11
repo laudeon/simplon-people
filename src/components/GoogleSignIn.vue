@@ -29,7 +29,8 @@
             this.$store.commit('me/signIn', false)
           })
           .catch(window.console.error)
-      }
+      },
+
     }
   }
 </script>

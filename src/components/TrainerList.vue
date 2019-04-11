@@ -23,16 +23,16 @@ export default {
     // If user is already signed in
     this.$gapi.isSignedIn()
       .then( () => this.$gapi._libraryInit('client'))
-      .then(client => {
-        this.$store.dispatch('trainers/fetchTrainers', client)
-      })
+      .then(client => this.$store.dispatch('trainers/fetchTrainers', client))
+      .then(() => this.$root.$emit('stopLoader'))
       .catch(window.console.error)
     
     // On root event: signed in
     this.$root.$on('signedin', function () {
       this.$gapi._libraryInit('client')
-        .then(client => {
-          this.$store.dispatch('trainers/fetchTrainers', client)
+        .then(client => this.$store.dispatch('trainers/fetchTrainers', client))
+        .then(() => {
+          this.$root.$emit('stopLoader')
         })
     })
   }

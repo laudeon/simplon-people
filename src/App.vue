@@ -24,12 +24,25 @@ export default {
     Sidebar,
     Searchbar,
     GoogleSingIn
+  },
+  created () {
+    const loader = this.$loading.show()
+    this.$root.$on('stopLoader', () => {
+      loader.hide()
+    })
+    this.$root.$on('showLoader', () => {
+      loader.show()
+    })
   }
 }
 </script>
 
 
 <style lang="sass">
+/** Fix for the loader */
+.vld-overlay .vld-background
+  opacity: 1 !important
+
 #app
   font-family: 'Ubuntu', sans-serif
   -webkit-font-smoothing: antialiased
@@ -49,5 +62,4 @@ export default {
       margin: 0
       font-size: 3rem
       font-weight: 200
-
 </style>

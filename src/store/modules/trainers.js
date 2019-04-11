@@ -30,7 +30,7 @@ const actions = {
 
 const mutations = {
   fetchTrainers (state, trainers) {
-    state.all = state.all.concat(trainers.map(trainer => new Trainer(trainer)))
+    state.all = trainers.map(trainer => new Trainer(trainer))
     state.filtered = state.all
   },
 
