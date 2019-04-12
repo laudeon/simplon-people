@@ -14,7 +14,7 @@ const getters = {
 
 const actions = {
   async fetchTrainers ({ commit }, gclient) {
-    gclient.sheets.spreadsheets.values.get({
+    return gclient.sheets.spreadsheets.values.get({
       spreadsheetId: process.env.VUE_APP_SPREADSHEET_ID,
       range: 'Formateur.rices!A2:M'
     }).then(response => {
@@ -39,7 +39,7 @@ const mutations = {
     state.filtered = state.all.filter(trainer => 
       Object.keys(trainer).some(key => {
         if(typeof trainer[key] === 'string') {
-          return trainer[key].includes(payload)
+          return trainer[key].toLowerCase().includes(payload.toLowerCase())
         }
 
         return false

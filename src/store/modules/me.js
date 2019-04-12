@@ -18,7 +18,7 @@ const actions = {
 }
 
 const mutations = {
-  signIn (state, payload) {
+  logged (state, payload) {
     state.logged = payload
   }
 }

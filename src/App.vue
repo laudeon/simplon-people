@@ -6,14 +6,15 @@
       </p>
       <h1>Bienvue sur <strong>le répertoire des équipes de Simplon.</strong></h1>
     </section>
-    <Searchbar v-if="logged === true" />
     <Sidebar v-if="logged === true" />
     <GoogleSingIn />
+    <Searchbar v-if="logged === true" />
     <router-view v-if="logged === true" />
   </div>
 </template>
 
 <script>
+  import './assets/normalize.css'
   import { mapState } from 'vuex'
   import Sidebar from '@/components/Sidebar.vue'
   import Searchbar from '@/components/Searchbar.vue'
@@ -48,7 +49,16 @@
           this.$gapi._libraryInit('client')
             .then(client => this.$store.dispatch('trainers/fetchTrainers', client))
             .then(() => this.$root.$emit('stoploader'))
-            .catch(window.console.error)
+            .catch(error => {
+              window.console.log(error)
+              if (
+                error.status === 401 ||
+                error.status === 403
+              ) {
+                this.$store.commit('me/logged', false)
+                this.$root.$emit('stoploader')
+              }
+            })
         }
       }
     }
@@ -57,9 +67,15 @@
 
 
 <style lang="sass">
+*, *::after, *::before
+  box-sizing: boder-box
+
 /** Fix for the loader */
 .vld-overlay .vld-background
   opacity: 1 !important
+
+body
+  padding: 0 3%
 
 #app
   font-family: 'Ubuntu', sans-serif

@@ -7,6 +7,7 @@ class Trainer {
   district = ''
   city = ''
   partnership = false
+  status = ''
 
   constructor (payload) {
     if (Array.isArray(payload)) payload = this.formatPayloadFromgAPI(payload)
@@ -19,6 +20,7 @@ class Trainer {
     this.district = payload.district || this.district
     this.city = payload.city || this.city
     this.partnership = payload.partnership || this.partnership
+    this.status = payload.status || this.status
   }
 
   _hashCode(str) {
@@ -29,7 +31,7 @@ class Trainer {
   formatPayloadFromgAPI (payload) {
     const formattedPayload = {}
     formattedPayload.id = this._hashCode(
-      payload[5] + '' + new Date().getMilliseconds()
+      payload[5] + payload[12] + payload[10] + Math.random(100) + '' + new Date().getMilliseconds()
     )
     formattedPayload.firstname = payload[4]
     formattedPayload.lastname = payload[3]
@@ -37,7 +39,8 @@ class Trainer {
     formattedPayload.district = payload[0]
     formattedPayload.city = payload[1]
     formattedPayload.skillsSet = payload[6]
-    formattedPayload.partnership = payload[7]
+    formattedPayload.partnership = payload[8]
+    formattedPayload.status = payload[9]
 
     return formattedPayload
   }

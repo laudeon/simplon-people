@@ -1,7 +1,7 @@
 <template>
   <section id="googleauth">
     <button id="google-signin" v-if="logged === false" type="button" v-on:click="signIn">Se connecter avec Google</button>
-    <button id="google-signout" v-if="logged === true" type="button" v-on:click="signOut">Sign out</button>
+    <button id="google-signout" v-if="logged === true" type="button" v-on:click="signOut">Se déconnecter</button>
   </section>
 </template>
 
@@ -17,21 +17,25 @@
     },
     created () {
       this.$gapi.isSignedIn()
-        .then(result => this.$store.commit('me/signIn', result))
+        .then(result => this.$store.commit('me/logged', result))
         .catch(window.console.error)
     },
     methods: {
       signIn () {
         this.$gapi.signIn()
-          .then(() => this.$store.commit('me/signIn', true))
+          .then(() => this.$store.commit('me/logged', true))
           .catch(window.console.error)
       },
       signOut () {
         this.$gapi.signOut()
-          .then(() => this.$store.commit('me/signIn', false))
+          .then(() => this.$store.commit('me/logged', false))
           .catch(window.console.error)
-      },
-
+      }
+    },
+    watch: {
+      logged(isLogged) {
+        if (!isLogged) this.signOut()
+      }
     }
   }
 </script>
@@ -49,11 +53,31 @@
     color: #757575
     box-shadow: 0 1px 2px #cecece
     font-size: 1rem
-    transition: .2s
+    transition: .3s
 
     &:hover
       cursor: pointer
-      box-shadow: 0 1px 6px #dedede
+      box-shadow: 0 1px 8px #cecece
+
+    &:focus
+      outline: none
+    
+    &::-moz-focus-inner
+      border: none
+
+  button#google-signout
+    position: absolute
+    right: 2rem
+    background: #ffffff
+    border: none
+    border-radius: 2px
+    outline: none
+    color: #757575
+    font-size: 1rem
+    transition: .3s
+
+    &:hover
+      cursor: pointer
 
     &:focus
       outline: none

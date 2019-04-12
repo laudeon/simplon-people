@@ -1,6 +1,5 @@
 <template>
   <section id="trainers">
-    <h1>Nos Formateurs</h1>
     <p>{{ trainers.length }} formateurs</p>
     <section id="trainers-list" role="list">
       <article v-for="trainer in trainers" :key="trainer.id">
@@ -30,28 +29,38 @@
 </script>
 
 <style lang="sass" scoped>
-section#trainers-list
-  display: flex
-  flex-wrap: wrap
+  section#trainers  
+    p
+      text-align: left
+      color: #929292
+  
+    section#trainers-list
+      display: flex
+      flex-wrap: wrap
+      justify-content: space-evenly
 
-  article
-    flex-grow: 1
-    max-width: calc(25% - 9rem)
-    margin: 2rem
-    padding: 1rem 2rem
-    border: 1px solid #eeeeee
-    text-align: left
-    word-wrap: break-word
-    box-shadow: 0 5px 15px rgba(0,0,0,.15)
+      article
+        flex-grow: 1
+        max-width: calc(25% - 9rem)
+        margin: 2rem 1rem
+        padding: 1rem 2rem
+        border: 1px solid #eeeeee
+        text-align: left
+        word-wrap: break-word
+        box-shadow: 0 5px 15px rgba(0,0,0,.15)
 
-    h1
-      font-size: 1.8rem
-      text-transform: capitalize
+        &:hover
+          cursor: pointer
 
-    ul
-      list-style: none
-      padding: 0
-      margin: 0
+
+        h1
+          font-size: 1.8rem
+          text-transform: capitalize
+
+        ul
+          list-style: none
+          padding: 0
+          margin: 0
 
 </style>
 
