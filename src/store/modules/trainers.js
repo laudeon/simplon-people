@@ -2,7 +2,8 @@ import Trainer from '../models/trainer'
 
 const state = {
   all: [],
-  filtered: []
+  filtered: [],
+  district: []
 }
 
 const getters = {

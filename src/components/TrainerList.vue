@@ -1,9 +1,9 @@
 <template>
   <section id="trainers">
     <h1>Nos Formateurs</h1>
-    <p>{{ $store.state.trainers.filtered.length }} formateurs</p>
+    <p>{{ trainers.length }} formateurs</p>
     <section id="trainers-list" role="list">
-      <article v-for="trainer in $store.state.trainers.filtered" :key="trainer.id">
+      <article v-for="trainer in trainers" :key="trainer.id">
         <h1>{{ trainer.firstname }} {{ trainer.lastname }}</h1>
         <ul>
           <li><strong>email</strong> {{ trainer.email }}</li>
@@ -17,26 +17,16 @@
 </template>
 
 <script>
-export default {
-  name: 'trainersList',
-  created () {
-    // If user is already signed in
-    this.$gapi.isSignedIn()
-      .then( () => this.$gapi._libraryInit('client'))
-      .then(client => this.$store.dispatch('trainers/fetchTrainers', client))
-      .then(() => this.$root.$emit('stopLoader'))
-      .catch(window.console.error)
-    
-    // On root event: signed in
-    this.$root.$on('signedin', function () {
-      this.$gapi._libraryInit('client')
-        .then(client => this.$store.dispatch('trainers/fetchTrainers', client))
-        .then(() => {
-          this.$root.$emit('stopLoader')
-        })
-    })
+  import { mapState } from 'vuex'
+
+  export default {
+    name: 'trainersList',
+    computed: {
+      ...mapState('trainers', {
+        trainers: state => state.filtered
+      })
+    }
   }
-}
 </script>
 
 <style lang="sass" scoped>
