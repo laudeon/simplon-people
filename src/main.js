@@ -4,8 +4,10 @@ import App from './App.vue'
 import router from './router'
 import store from './store'
 import VueFlashMessage from 'vue-flash-message'
-import 'vue-loading-overlay/dist/vue-loading.css'
 import Loading from 'vue-loading-overlay'
+
+import 'vue-flash-message/dist/vue-flash-message.min.css'
+import 'vue-loading-overlay/dist/vue-loading.css'
 
 const gapiConfig = {
   apiKey: process.env.VUE_APP_SPREADSHEET_API_KEY,
@@ -17,7 +19,13 @@ const gapiConfig = {
 Vue.config.productionTip = false
 
 Vue.use(VueGoogleApi, gapiConfig)
-Vue.use(VueFlashMessage)
+Vue.use(VueFlashMessage, {
+  messageOptions: {
+    timeout: 4000,
+    important: true,
+    pauseOnInteract: true
+  }
+})
 Vue.use(Loading, {
   'is-full-page': true
 })

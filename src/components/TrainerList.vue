@@ -30,6 +30,8 @@
 
 <style lang="sass" scoped>
   section#trainers  
+    margin-left: 200px
+
     p
       text-align: left
       color: #929292

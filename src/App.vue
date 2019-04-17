@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <flash-message></flash-message>
     <section id="intro" v-if="logged === false">
       <p>
         Qui c'est ? Où est-elle ? Qu'est-ce qu'il fait ?
@@ -34,7 +35,6 @@
     },
     created () {
       let loader = this.$loading.show()
-      loader.hide()
       this.$root.$on('stoploader', () => {
         loader.hide()
       })
@@ -45,10 +45,11 @@
     watch: {
       logged(isLogged) {
         if (isLogged) {
-          this.$root.$emit('showloader')
           this.$gapi._libraryInit('client')
             .then(client => this.$store.dispatch('trainers/fetchTrainers', client))
+            .then(() => this.$store.commit('trainers/deduceDistricts'))
             .then(() => this.$root.$emit('stoploader'))
+            .then(() => this.flash('Data loaded!', 'success'))
             .catch(error => {
               window.console.log(error)
               if (
@@ -57,8 +58,11 @@
               ) {
                 this.$store.commit('me/logged', false)
                 this.$root.$emit('stoploader')
+                this.flash('Votre session a expiré !', 'error')
               }
             })
+        } else {
+          this.$root.$emit('stoploader')
         }
       }
     }

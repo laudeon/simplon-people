@@ -7,22 +7,25 @@
 </template>
 
 <script>
-export default {
-  name: 'searchbar',
-  data () {
-    return {
-      spayload: ''
-    }
-  },
-  watch: {
-    spayload: function(newPlayload) {
-      this.$store.commit('trainers/filter', newPlayload)
+  export default {
+    name: 'searchbar',
+    data () {
+      return {
+        spayload: ''
+      }
+    },
+    watch: {
+      spayload: function(newPlayload) {
+        this.$store.commit('trainers/filter', newPlayload)
+      }
     }
   }
-}
 </script>
 
 <style lang="sass" scoped>
+header#searchbar
+  margin-left: 200px
+
   form
     width: 50vw
     margin: 0 auto

@@ -3,7 +3,7 @@ import Trainer from '../models/trainer'
 const state = {
   all: [],
   filtered: [],
-  district: []
+  districts: []
 }
 
 const getters = {
@@ -45,6 +45,16 @@ const mutations = {
         return false
       })
     )
+  },
+
+  deduceDistricts (state) {
+    state.districts = state.all.reduce((acc, trainer) => {
+      if (!acc.includes(trainer.district)) {
+        acc.push(trainer.district)
+      }
+
+      return acc
+    }, [])
   },
 
   addTrainer (state, trainer) {
