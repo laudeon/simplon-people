@@ -3,13 +3,16 @@
     <p>{{ trainers.length }} formateurs</p>
     <section id="trainers-list" role="list">
       <article v-for="trainer in trainers" :key="trainer.id">
-        <h1>{{ trainer.firstname }} {{ trainer.lastname }}</h1>
-        <ul>
-          <li><strong>email</strong> {{ trainer.email }}</li>
-          <li><strong>région</strong> {{ trainer.district }}</li>
-          <li><strong>fabrique</strong> {{ trainer.city }} / {{ trainer.partnership }}</li>
-          <li><strong>formation / technos</strong> {{ trainer.skillsSet }}</li>
-        </ul>
+        <h1 v-on:click="showModal(trainer.email)">{{ trainer.firstname }} {{ trainer.lastname }}</h1>
+        <p><strong>email</strong> {{ trainer.email }}</p>
+        <modal :name="trainer.email">
+          <ul>
+            <li><strong>email</strong> {{ trainer.email }}</li>
+            <li><strong>région</strong> {{ trainer.district }}</li>
+            <li><strong>fabrique</strong> {{ trainer.city }} / {{ trainer.partnership }}</li>
+            <li><strong>formation / technos</strong> {{ trainer.skillsSet }}</li>
+          </ul>
+        </modal>
       </article>
     </section>
   </section>
@@ -24,6 +27,11 @@
       ...mapState('trainers', {
         trainers: state => state.filtered
       })
+    },
+    methods: {
+      showModal (email) {
+        this.$modal.show(email)
+      }
     }
   }
 </script>
@@ -43,21 +51,24 @@
 
       article
         flex-grow: 1
-        max-width: calc(25% - 9rem)
+        max-width: 50%
         margin: 2rem 1rem
         padding: 1rem 2rem
         border: 1px solid #eeeeee
         text-align: left
         word-wrap: break-word
-        box-shadow: 0 5px 15px rgba(0,0,0,.15)
+        box-shadow: 0 3px 8px rgba(0,0,0,.15)
+        transition: .3s
 
         &:hover
-          cursor: pointer
-
+          box-shadow: 0 5px 16px rgba(0,0,0,.25)
 
         h1
           font-size: 1.8rem
           text-transform: capitalize
+          
+          &:hover
+            cursor: pointer
 
         ul
           list-style: none

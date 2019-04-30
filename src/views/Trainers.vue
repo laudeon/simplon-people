@@ -8,7 +8,12 @@
 import TrainerList from '@/components/TrainerList.vue'
 
 export default {
-  name: 'home',
+  name: 'trainers',
+  beforeRouteEnter (to, from, next) {
+    next(vm => {
+      vm.$store.commit('switchView', 'trainers')
+    })
+  },
   components: {
     TrainerList
   }

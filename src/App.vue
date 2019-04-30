@@ -46,10 +46,12 @@
       logged(isLogged) {
         if (isLogged) {
           this.$gapi._libraryInit('client')
-            .then(client => this.$store.dispatch('trainers/fetchTrainers', client))
-            .then(() => this.$store.commit('trainers/deduceDistricts'))
+            .then(client => 
+              this.$store.dispatch('team/fetchTeam', client)
+                .then(() => this.$store.dispatch('trainers/fetchTrainers', client))
+            )
+            .then(() => this.$store.commit('deduceDistricts'))
             .then(() => this.$root.$emit('stoploader'))
-            .then(() => this.flash('Data loaded!', 'success'))
             .catch(error => {
               window.console.log(error)
               if (

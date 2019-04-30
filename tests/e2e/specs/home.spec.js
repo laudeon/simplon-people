@@ -19,10 +19,6 @@ describe('Signing in', () => {
     })
   })
 
-  it('Should show app homepage content', () => {
-    cy.contains('h1', 'Nos formateurs')
-  })
-
   it('Should contain a signout button', () => {
     cy.get('#google-signout').should('be.visible')
   })

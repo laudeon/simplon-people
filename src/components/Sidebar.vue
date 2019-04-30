@@ -1,10 +1,13 @@
 <template>
   <nav id="sidebar">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+    <router-link to="/">Formateur⋅rice⋅s</router-link> |
+    <router-link to="/team">Team</router-link>
     <ul>
+      <li>
+        <a v-on:click="all">Toutes</a>
+      </li>
       <li v-for="district in districts" v-bind:key="district">
-        {{ district }}
+        <a v-on:click="filter">{{ district }}</a>
       </li>
     </ul>
   </nav>
@@ -16,9 +19,17 @@
   export default {
     name: 'sidebar',
     computed: {
-      ...mapState('trainers', {
+      ...mapState({
         districts: state => state.districts
       })
+    },
+    methods: {
+      filter (e) {
+        this.$store.commit(`${this.$store.state.activeView}/filter`, e.target.innerHTML.trim())
+      },
+      all (e) {
+        this.$store.commit(`${this.$store.state.activeView}/filter`, '')
+      }
     }
   }
 </script>

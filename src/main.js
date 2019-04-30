@@ -5,6 +5,7 @@ import router from './router'
 import store from './store'
 import VueFlashMessage from 'vue-flash-message'
 import Loading from 'vue-loading-overlay'
+import VModal from 'vue-js-modal'
 
 import 'vue-flash-message/dist/vue-flash-message.min.css'
 import 'vue-loading-overlay/dist/vue-loading.css'
@@ -29,6 +30,7 @@ Vue.use(VueFlashMessage, {
 Vue.use(Loading, {
   'is-full-page': true
 })
+Vue.use(VModal)
 
 const app = new Vue({
   router,
@@ -36,7 +38,7 @@ const app = new Vue({
   render: h => h(App)
 }).$mount('#app')
 
+// only available during E2E tests
 if (window.Cypress) {
-  // only available during E2E tests
   window.app = app
 }

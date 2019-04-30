@@ -16,7 +16,7 @@
     },
     watch: {
       spayload: function(newPlayload) {
-        this.$store.commit('trainers/filter', newPlayload)
+        this.$store.commit(`${this.$store.state.activeView}/filter`, newPlayload)
       }
     }
   }
