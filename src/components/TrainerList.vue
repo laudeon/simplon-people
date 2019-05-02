@@ -6,6 +6,7 @@
         <h1 v-on:click="showModal(trainer.email)">{{ trainer.firstname }} {{ trainer.lastname }}</h1>
         <p><strong>email</strong> {{ trainer.email }}</p>
         <modal :name="trainer.email">
+          <h1>{{ trainer.firstname }} {{ trainer.lastname }}</h1>
           <ul>
             <li><strong>email</strong> {{ trainer.email }}</li>
             <li><strong>région</strong> {{ trainer.district }}</li>
@@ -38,7 +39,7 @@
 
 <style lang="sass" scoped>
   section#trainers  
-    margin-left: 200px
+    margin-left: 250px
 
     p
       text-align: left
@@ -48,6 +49,7 @@
       display: flex
       flex-wrap: wrap
       justify-content: space-evenly
+      padding-right: 3%
 
       article
         flex-grow: 1
@@ -74,6 +76,9 @@
           list-style: none
           padding: 0
           margin: 0
+
+        .v--modal-overlay .v--modal-box.v--modal ul
+          padding: 2rem
 
 </style>
 

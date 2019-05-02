@@ -37,6 +37,26 @@
 <style lang="sass" scoped>
 nav#sidebar
   position: fixed
-  width: 200px
+  top: 0
+  bottom: 0
+  left: 0
+  width: 220px
+  background: white
+  box-shadow: 0 4px 10px rgba(0, 0, 0, .15)
+  border-right: 1px solid #eeeeee
+
+  ul
+    list-style: none
+    margin: 0
+    padding: 0 0 0 1rem
+
+    li
+      margin: 1rem 0
+    
+      &:hover
+        cursor: pointer
+  >a
+    display: inline-block
+    padding: 1rem
 </style>
 

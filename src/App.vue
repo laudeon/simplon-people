@@ -35,6 +35,7 @@
     },
     created () {
       let loader = this.$loading.show()
+      loader.hide()
       this.$root.$on('stoploader', () => {
         loader.hide()
       })
@@ -45,6 +46,7 @@
     watch: {
       logged(isLogged) {
         if (isLogged) {
+          this.$root.$emit('showloader')
           this.$gapi._libraryInit('client')
             .then(client => 
               this.$store.dispatch('team/fetchTeam', client)
@@ -81,7 +83,7 @@
   opacity: 1 !important
 
 body
-  padding: 0 3%
+  padding: 2rem 0
 
 #app
   font-family: 'Ubuntu', sans-serif
