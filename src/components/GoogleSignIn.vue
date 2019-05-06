@@ -1,40 +1,32 @@
 <template>
   <section id="googleauth">
-    <button id="google-signin" v-if="logged === false" type="button" v-on:click="signIn">Se connecter avec Google</button>
-    <button id="google-signout" v-if="logged === true" type="button" v-on:click="signOut">Se déconnecter</button>
+    <button id="google-signin" v-if="status === false" type="button" v-on:click="signIn">Se connecter avec Google</button>
+    <button id="google-signout" v-if="status === true" type="button" v-on:click="signOut">Se déconnecter</button>
   </section>
 </template>
 
 <script>
-  import { mapState } from 'vuex'
-
   export default {
     name: 'googleauth',
-    computed: {
-      ...mapState('me', {
-        logged: state => state.logged, 
-      })
+    props: {
+      callback: Function,
+      status: Boolean
     },
     created () {
       this.$gapi.isSignedIn()
-        .then(result => this.$store.commit('me/logged', result))
+        .then(result => this.callback(result))
         .catch(window.console.error)
     },
     methods: {
       signIn () {
         this.$gapi.signIn()
-          .then(() => this.$store.commit('me/logged', true))
+          .then(() => this.callback(true))
           .catch(window.console.error)
       },
       signOut () {
         this.$gapi.signOut()
-          .then(() => this.$store.commit('me/logged', false))
+          .then(() => this.callback(false))
           .catch(window.console.error)
-      }
-    },
-    watch: {
-      logged(isLogged) {
-        if (!isLogged) this.signOut()
       }
     }
   }

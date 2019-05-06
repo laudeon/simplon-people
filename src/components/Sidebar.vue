@@ -27,7 +27,7 @@
       filter (e) {
         this.$store.commit(`${this.$store.state.activeView}/filter`, e.target.innerHTML.trim())
       },
-      all (e) {
+      all () {
         this.$store.commit(`${this.$store.state.activeView}/filter`, '')
       }
     }

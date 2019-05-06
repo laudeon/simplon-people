@@ -8,7 +8,7 @@
       <h1>Bienvue sur <strong>le répertoire des équipes de Simplon.</strong></h1>
     </section>
     <Sidebar v-if="logged === true" />
-    <GoogleSingIn />
+    <GoogleSingIn :callback="gSignInCallback" :status="logged" />
     <Searchbar v-if="logged === true" />
     <router-view v-if="logged === true" />
   </div>
@@ -42,6 +42,11 @@
       this.$root.$on('showloader', () => {
         loader = this.$loading.show()
       })
+    },
+    methods: {
+      gSignInCallback (status) {
+        this.$store.commit('me/logged', status)
+      }
     },
     watch: {
       logged(isLogged) {
