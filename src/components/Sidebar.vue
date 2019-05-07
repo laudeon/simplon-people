@@ -1,10 +1,11 @@
 <template>
   <nav id="sidebar">
-    <router-link to="/">Formateur⋅rice⋅s</router-link> |
+    <h1>Simplon People</h1>
+    <router-link to="/">Formateur⋅rice⋅s</router-link>
     <router-link to="/team">Team</router-link>
     <ul>
       <li>
-        <a v-on:click="all">Toutes</a>
+        <a v-on:click="all">Toutes régions</a>
       </li>
       <li v-for="district in districts" v-bind:key="district">
         <a v-on:click="filter">{{ district }}</a>
@@ -41,14 +42,24 @@ nav#sidebar
   bottom: 0
   left: 0
   width: 220px
-  background: white
-  box-shadow: 0 4px 10px rgba(0, 0, 0, .15)
-  border-right: 1px solid #eeeeee
+  background: rgb(255,44,97)
+  background: linear-gradient(180deg, rgba(206,0,51,1) 44%, rgba(162,0,41,1) 100%)
+  color: #ffffff
+
+  > h1
+    background: #ffffff
+    margin: 0
+    color: #ce0033
+    height: 5rem
+    padding: 1.5rem
+    text-align: center
+    font-size: 1.4rem
 
   ul
     list-style: none
     margin: 0
     padding: 0 0 0 1rem
+    
 
     li
       margin: 1rem 0
@@ -56,7 +67,11 @@ nav#sidebar
       &:hover
         cursor: pointer
   >a
-    display: inline-block
+    display: block
     padding: 1rem
+    color: #ffffff
+    font-weight: 700
+    text-decoration: none
+    margin: .1rem 0
 </style>
 

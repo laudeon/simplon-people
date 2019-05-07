@@ -81,14 +81,14 @@
 
 <style lang="sass">
 *, *::after, *::before
-  box-sizing: boder-box
+  box-sizing: border-box
 
 /** Fix for the loader */
 .vld-overlay .vld-background
   opacity: 1 !important
 
 body
-  padding: 2rem 0
+  padding: 0
 
 #app
   font-family: 'Ubuntu', sans-serif

@@ -38,11 +38,14 @@
 
 <style lang="sass" scoped>
   section#team  
-    margin-left: 250px
+    margin-left: 220px
+    padding: 1rem 0 0 2rem
+    background: #eeeeee
 
     p
       text-align: left
       color: #929292
+      font-size: .8rem
   
     section#team-list
       display: flex
@@ -52,13 +55,14 @@
       article
         flex-grow: 1
         max-width: 50%
-        margin: 2rem 1rem
+        margin: 1rem 1rem
         padding: 1rem 2rem
         border: 1px solid #eeeeee
         text-align: left
         word-wrap: break-word
-        box-shadow: 0 3px 8px rgba(0,0,0,.15)
+        box-shadow: 0 1px 1px rgba(0,0,0,.3)
         transition: .3s
+        background: #ffffff
 
         &:hover
           box-shadow: 0 5px 16px rgba(0,0,0,.25)

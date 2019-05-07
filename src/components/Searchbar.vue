@@ -24,15 +24,17 @@
 
 <style lang="sass" scoped>
 header#searchbar
-  margin-left: 200px
+  background: #ffffff
+  margin-left: 250px
+  height: 5rem
+  padding: 1.2rem 0 0 0
 
   form
     width: 50vw
-    margin: 0 auto
 
     input
-      width: 100%
-      height: 2rem
+      width: 70%
+      height: 2.5rem
       border: 1px solid #eeeeee
       border-radius: 3px
       box-shadow: 0 2px 8px #dedede

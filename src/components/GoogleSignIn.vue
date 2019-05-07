@@ -60,16 +60,20 @@
   button#google-signout
     position: absolute
     right: 2rem
+    top: 1.2rem
     background: #ffffff
-    border: none
-    border-radius: 2px
+    border: 1px solid #cecece
+    border-radius: 3px
+    padding: .8rem 1rem
     outline: none
     color: #757575
-    font-size: 1rem
+    font-size: .8rem
     transition: .3s
 
     &:hover
       cursor: pointer
+      border: 1px solid #ce0033
+      color: #ce0033
 
     &:focus
       outline: none
