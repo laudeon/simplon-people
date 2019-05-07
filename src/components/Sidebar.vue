@@ -21,15 +21,16 @@
     name: 'sidebar',
     computed: {
       ...mapState({
-        districts: state => state.districts
+        districts: state => state.districts,
+        activeView: state => state.activeView
       })
     },
     methods: {
       filter (e) {
-        this.$store.commit(`${this.$store.state.activeView}/filter`, e.target.innerHTML.trim())
+        this.$store.commit(`${this.activeView}/filter`, e.target.innerHTML.trim())
       },
       all () {
-        this.$store.commit(`${this.$store.state.activeView}/filter`, '')
+        this.$store.commit(`${this.activeView}/filter`, '')
       }
     }
   }
@@ -66,12 +67,18 @@ nav#sidebar
     
       &:hover
         cursor: pointer
-  >a
+  > a
     display: block
     padding: 1rem
     color: #ffffff
     font-weight: 700
     text-decoration: none
     margin: .1rem 0
+
+    &:active, &:focus
+      outline: none
+  
+  > .router-link-exact-active
+      text-decoration: underline
 </style>
 
