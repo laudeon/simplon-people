@@ -1,16 +1,26 @@
 <template>
   <div id="app">
     <flash-message></flash-message>
+    
     <section id="intro" v-if="logged === false">
       <p>
         Qui c'est ? Où est-elle ? Qu'est-ce qu'il fait ?
       </p>
       <h1>Bienvue sur <strong>le répertoire des équipes de Simplon.</strong></h1>
     </section>
+    
     <Sidebar v-if="logged === true" />
+    
     <GoogleSingIn :callback="gSignInCallback" :status="logged" />
+    
     <Searchbar v-if="logged === true" />
-    <router-view v-if="logged === true" />
+    
+    <transition name="component-fade">
+      <keep-alive>
+        <TeamList v-if="logged === true && $store.state.activeView === 'team'" />
+        <TrainerList v-if="logged === true && $store.state.activeView === 'trainers'"/>
+      </keep-alive>
+    </transition>
   </div>
 </template>
 
@@ -20,14 +30,11 @@
   import Sidebar from '@/components/Sidebar.vue'
   import Searchbar from '@/components/Searchbar.vue'
   import GoogleSingIn from '@/components/GoogleSignIn.vue'
+  import TeamList from '@/components/TeamList.vue'
+  import TrainerList from '@/components/TrainerList.vue'
 
   export default {
     name: 'app',
-    components: {
-      Sidebar,
-      Searchbar,
-      GoogleSingIn
-    },
     computed: {
       ...mapState({
         logged: state => state.me.logged, 
@@ -53,27 +60,32 @@
         if (isLogged) {
           this.$root.$emit('showloader')
           this.$gapi._libraryInit('client')
-            .then(client => 
-              this.$store.dispatch('team/fetchTeam', client)
-                .then(() => this.$store.dispatch('trainers/fetchTrainers', client))
-            )
+            .then(client => Promise.all([
+              this.$store.dispatch('team/fetchTeam', client),
+              this.$store.dispatch('trainers/fetchTrainers', client)
+            ]))
             .then(() => this.$store.commit('deduceDistricts'))
             .then(() => this.$root.$emit('stoploader'))
             .catch(error => {
-              window.console.log(error)
-              if (
-                error.status === 401 ||
-                error.status === 403
-              ) {
+              if (error.status >= 400) {
                 this.$store.commit('me/logged', false)
                 this.$root.$emit('stoploader')
-                this.flash('Votre session a expiré !', 'error')
+                this.flash(this.$getErrorMessage(error.status), 'error')
               }
             })
-        } else {
-          this.$root.$emit('stoploader')
+
+          return
         }
+
+        this.$root.$emit('stoploader')
       }
+    },
+    components: {
+      Sidebar,
+      Searchbar,
+      GoogleSingIn,
+      TeamList,
+      TrainerList
     }
   }
 </script>
@@ -96,6 +108,7 @@ body
   -moz-osx-font-smoothing: grayscale
   color: #323232
   font-size: 1rem
+  padding-bottom: 2rem
   
   section#intro
     text-align: center
@@ -109,4 +122,10 @@ body
       margin: 0
       font-size: 3rem
       font-weight: 200
+
+.component-fade-enter-active, .component-fade-leave-active
+  transition: opacity .3s
+.component-fade-enter, .component-fade-leave-to, .component-fade-enter-active
+  opacity: 0
+
 </style>

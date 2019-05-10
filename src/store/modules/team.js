@@ -1,4 +1,4 @@
-import Employee from '../models/employee'
+import EmployeeModel from '../models/EmployeeModel'
 
 const state = {
   all: [],
@@ -22,7 +22,7 @@ const actions = {
   },
 
   async addEmployee ({ commit }, payload) {
-    const employee = new Employee(payload)
+    const employee = new EmployeeModel(payload)
     // await post employee...
     commit('addEmployee', employee)
   }
@@ -30,20 +30,8 @@ const actions = {
 
 const mutations = {
   fetchTeam (state, team) {
-    state.all = team.map(employee => new Employee(employee))
+    state.all = team.map(employee => new EmployeeModel(employee))
     state.filtered = state.all
-  },
-
-  filter (state, payload) {
-    state.filtered = state.all.filter(employee => 
-      Object.keys(employee).some(key => {
-        if(typeof employee[key] === 'string') {
-          return employee[key].toLowerCase().includes(payload.toLowerCase())
-        }
-
-        return false
-      })
-    )
   },
 
   addEmployee (state, employee) {

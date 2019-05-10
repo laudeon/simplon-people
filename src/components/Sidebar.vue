@@ -1,11 +1,11 @@
 <template>
   <nav id="sidebar">
     <h1>Simplon People</h1>
-    <router-link to="/">Formateur⋅rice⋅s</router-link>
-    <router-link to="/team">Team</router-link>
+    <a v-on:click="switchView('trainers')" id="trainers-link" class="view-link active">Formateur⋅rice⋅s</a>
+    <a v-on:click="switchView('team')" id="team-link" class="view-link">DIUT / CME / PP</a>
     <ul>
       <li>
-        <a v-on:click="all">Toutes régions</a>
+        <a v-on:click="all" class="active">Toutes régions</a>
       </li>
       <li v-for="district in districts" v-bind:key="district">
         <a v-on:click="filter">{{ district }}</a>
@@ -22,15 +22,32 @@
     computed: {
       ...mapState({
         districts: state => state.districts,
-        activeView: state => state.activeView
       })
     },
     methods: {
-      filter (e) {
-        this.$store.commit(`${this.activeView}/filter`, e.target.innerHTML.trim())
+      switchView (name) {
+        const target = document.querySelector('#' + name + '-link')
+        const parent = target.parentElement
+       
+        parent.querySelectorAll('a.view-link').forEach(a => a.className = 'view-link')
+        target.className = target.className + ' active'
+        
+        this.$store.commit('switchView', name)
       },
-      all () {
-        this.$store.commit(`${this.activeView}/filter`, '')
+      setActive (target) {
+        const listElement = target.parentElement.parentElement
+        listElement.querySelectorAll('li a').forEach(a => a.className = '')
+        target.className = 'active'
+      },
+      filter (e) {
+        this.setActive(e.target)
+
+        this.$store.commit(`filter`, e.target.innerHTML.trim())
+      },
+      all (e) {
+        this.setActive(e.target)
+        
+        this.$store.commit(`filter`, '')
       }
     }
   }
@@ -67,18 +84,46 @@ nav#sidebar
     
       &:hover
         cursor: pointer
+    
+      a
+        position: relative
+        display: block
+        opacity: .9
+        transition: .2s
+
+        &::after
+          content: ''
+          display: block
+          position: absolute
+          top: .1rem
+          left: -.5rem
+          height: 1rem
+          width: .1rem
+          background: none
+          transition: .2s
+
+        &.active::after
+          background: #ffffff
+        
+        &.active
+          opacity: 1
   > a
     display: block
     padding: 1rem
     color: #ffffff
     font-weight: 700
+    background: rgba(255, 255, 255, 0)
     text-decoration: none
     margin: .1rem 0
+    transition: .2s
+
+    &:hover
+      cursor: pointer
 
     &:active, &:focus
       outline: none
   
-  > .router-link-exact-active
-      text-decoration: underline
+  > .active
+      background: rgba(255, 255, 255, .2)
 </style>
 

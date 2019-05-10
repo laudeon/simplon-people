@@ -1,4 +1,4 @@
-import Trainer from '../models/trainer'
+import TrainerModel from '../models/TrainerModel'
 
 const state = {
   all: [],
@@ -22,7 +22,7 @@ const actions = {
   },
 
   async addTrainer ({ commit }, payload) {
-    const trainer = new Trainer(payload)
+    const trainer = new TrainerModel(payload)
     // await post trainer...
     commit('addTrainer', trainer)
   }
@@ -30,20 +30,8 @@ const actions = {
 
 const mutations = {
   fetchTrainers (state, trainers) {
-    state.all = trainers.map(trainer => new Trainer(trainer))
+    state.all = trainers.map(trainer => new TrainerModel(trainer))
     state.filtered = state.all
-  },
-
-  filter (state, payload) {
-    state.filtered = state.all.filter(trainer => 
-      Object.keys(trainer).some(key => {
-        if(typeof trainer[key] === 'string') {
-          return trainer[key].toLowerCase().includes(payload.toLowerCase())
-        }
-
-        return false
-      })
-    )
   },
 
   addTrainer (state, trainer) {

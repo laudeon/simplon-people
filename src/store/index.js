@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import trainers from './modules/trainers'
 import team from './modules/team'
 import me from './modules/me'
+import utils from './utils'
 
 Vue.use(Vuex)
 
@@ -18,11 +19,14 @@ export default new Vuex.Store({
   mutations: {
     switchView (state, payload) {
       if (!VIEWS.includes(payload)) {
-        throw new Error('The passed view does not exist. Possible views are : trainers, team.')
+        throw new Error(
+          'The passed view does not exist. Possible views are : trainers, team.'
+        )
       }
 
       state.activeView = payload
     },
+
     deduceDistricts (state) {
       let districtsArray = []
 
@@ -39,6 +43,11 @@ export default new Vuex.Store({
 
       state.districts = [...new Set([].concat(...districtsArray))]
     },
+
+    filter (state, payload) {
+      utils.mutations.filter(state.trainers, payload)
+      utils.mutations.filter(state.team, payload)
+    }
   },
   modules: {
     trainers,

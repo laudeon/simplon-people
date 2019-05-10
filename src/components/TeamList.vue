@@ -1,20 +1,20 @@
 <template>
   <section id="team">
     <p>{{ team.length }} collaborateur⋅rice⋅s</p>
-    <section id="team-list" role="list">
-      <article v-for="employee in team" :key="employee.id">
-        <h1 v-on:click="showModal(employee.email)">{{ employee.firstname }} {{ employee.lastname }}</h1>
-        <p><strong>email</strong> {{ employee.email }}</p>
-        <modal :name="employee.email">
-          <ul>
-            <li><strong>email</strong> {{ employee.email }}</li>
-            <li><strong>région</strong> {{ employee.district }}</li>
-            <li><strong>fabrique</strong> {{ employee.city }} / {{ employee.partnership }}</li>
-            <li><strong>formation / technos</strong> {{ employee.skillsSet }}</li>
-          </ul>
-        </modal>
-      </article>
-    </section>
+      <section id="team-list" role="list">
+        <article v-for="employee in team" :key="employee.id">
+          <h1 v-on:click="showModal(employee.email)">{{ employee.firstname }} {{ employee.lastname }}</h1>
+          <p><strong>email</strong> {{ employee.email }}</p>
+          <modal :name="employee.email">
+            <ul>
+              <li><strong>email</strong> {{ employee.email }}</li>
+              <li><strong>région</strong> {{ employee.district }}</li>
+              <li><strong>fabrique</strong> {{ employee.city }} / {{ employee.partnership }}</li>
+              <li><strong>Fonction / Poste</strong> {{ employee.role }}</li>
+            </ul>
+          </modal>
+        </article>
+      </section>
   </section>
 </template>
 
@@ -22,7 +22,7 @@
   import { mapState } from 'vuex'
 
   export default {
-    name: 'teamList',
+    name: 'team',
     computed: {
       ...mapState('team', {
         team: state => state.filtered

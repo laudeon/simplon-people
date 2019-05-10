@@ -16,7 +16,7 @@
     },
     watch: {
       spayload: function(newPlayload) {
-        this.$store.commit(`${this.$store.state.activeView}/filter`, newPlayload)
+        this.$store.commit('filter', newPlayload)
       }
     }
   }
@@ -25,9 +25,9 @@
 <style lang="sass" scoped>
 header#searchbar
   background: #ffffff
-  margin-left: 250px
+  margin-left: 220px
   height: 5rem
-  padding: 1.2rem 0 0 0
+  padding: 1.2rem 0 0 30px
 
   form
     width: 50vw

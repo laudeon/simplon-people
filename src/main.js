@@ -1,11 +1,14 @@
 import Vue from 'vue'
+
 import VueGoogleApi from 'vue-google-api'
-import App from './App.vue'
-import router from './router'
-import store from './store'
 import VueFlashMessage from 'vue-flash-message'
 import Loading from 'vue-loading-overlay'
 import VModal from 'vue-js-modal'
+
+import App from './App.vue'
+// import router from './router'
+import store from './store'
+import errorHandler from './plugins/errorHandler'
 
 import 'vue-flash-message/dist/vue-flash-message.min.css'
 import 'vue-loading-overlay/dist/vue-loading.css'
@@ -28,12 +31,14 @@ Vue.use(VueFlashMessage, {
   }
 })
 Vue.use(Loading, {
-  'is-full-page': true
+  'is-full-page': true,
+  'color': '#ce0033'
 })
 Vue.use(VModal)
+Vue.use(errorHandler)
 
 const app = new Vue({
-  router,
+  // router,
   store,
   render: h => h(App)
 }).$mount('#app')

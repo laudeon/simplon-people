@@ -1,4 +1,6 @@
-class Trainer {
+import Model from './Model'
+
+class TrainerModel extends Model {
   id = ''
   firstname = ''
   lastname = ''
@@ -10,6 +12,8 @@ class Trainer {
   status = ''
 
   constructor (payload) {
+    super()
+
     if (Array.isArray(payload)) payload = this.formatPayloadFromgAPI(payload)
 
     this.id = payload.id || this.id
@@ -23,15 +27,10 @@ class Trainer {
     this.status = payload.status || this.status
   }
 
-  _hashCode(str) {
-    return str.split('').reduce((prevHash, currVal) =>
-      (((prevHash << 5) - prevHash) + currVal.charCodeAt(0))|0, 0);
-  }
-
   formatPayloadFromgAPI (payload) {
     const formattedPayload = {}
     formattedPayload.id = this._hashCode(
-      payload[5] + payload[12] + payload[10] + Math.random(100) + '' + new Date().getMilliseconds()
+      payload[5] + Math.random(100) + '' + new Date().getMilliseconds()
     )
     formattedPayload.firstname = payload[4]
     formattedPayload.lastname = payload[3]
@@ -46,4 +45,4 @@ class Trainer {
   }
 }
 
-export default Trainer
+export default TrainerModel

@@ -23,7 +23,7 @@
   import { mapState } from 'vuex'
 
   export default {
-    name: 'trainersList',
+    name: 'trainers',
     computed: {
       ...mapState('trainers', {
         trainers: state => state.filtered

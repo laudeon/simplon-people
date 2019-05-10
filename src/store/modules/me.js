@@ -1,11 +1,4 @@
 const state = {
-  id: '',
-  firstname: '',
-  lastname: '',
-  email: '',
-  jobTitle: '',
-  district: '',
-  description: '',
   logged: false
 }
 
