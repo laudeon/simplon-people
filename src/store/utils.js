@@ -1,28 +1,20 @@
-export default {
-  mutations: {
-    filter (state, payload) {
-      if (payload === '') {
-        return state.filtered = state.all
-      }
+const sanitizeString = (str) => str
+                            .normalize('NFD')
+                            .replace(/[\u0300-\u036f]/g, "")
+                            .toLowerCase()
 
-      const sanitizedPayload = payload
-                                .normalize('NFD')
-                                .replace(/[\u0300-\u036f]/g, "")
-                                .toLowerCase()
-  
-      state.filtered = state.all.filter(employee => 
-        Object.keys(employee).some(key => {
-          if(typeof employee[key] === 'string') {
-            const sanitizedEmployee = employee[key]
-                                        .normalize('NFD')
-                                        .replace(/[\u0300-\u036f]/g, "")
-                                        .toLowerCase()
-            return sanitizedEmployee.includes(sanitizedPayload)
-          }
-  
-          return false
-        })
-      )
-    }
+const ifIncludes = function (criterias, data, key) {
+  let res
+
+  if (criterias.length === 0) {
+    res = data
+  } else {
+    res = data.filter((elem) =>
+      criterias.includes(elem[key])
+    )
   }
+
+  return res
 }
+
+export default { sanitizeString, ifIncludes }

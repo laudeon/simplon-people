@@ -7,46 +7,83 @@ import utils from './utils'
 
 Vue.use(Vuex)
 
-const debug = process.env.NODE_ENV !== 'production'
-
-const VIEWS = ['trainers', 'team']
+const LISTS = ['trainers', 'team']
+const DISTRICTS = [
+  "DROM",
+  "Auvergne-Rhône-Alpes",
+  "Bourgogne-Franche-Comté",
+  "Bretagne",
+  "Centre-Val de Loire",
+  "Corse",
+  "Grand Est",
+  "Hauts-de-France",
+  "Île-de-France",
+  "Normandie",
+  "Nouvelle-Aquitaine",
+  "Occitanie",
+  "Pays de la Loire",
+  "Provence-Alpes-Côte d’Azur"
+]
 
 export default new Vuex.Store({
   state: {
-    activeView: VIEWS[0],
-    districts: []
+    activeList: LISTS[0],
+    districts: DISTRICTS,
+    activeDistricts: []
   },
   mutations: {
-    switchView (state, payload) {
-      if (!VIEWS.includes(payload)) {
+    switchList (state, payload) {
+      if (!LISTS.includes(payload)) {
         throw new Error(
-          'The passed view does not exist. Possible views are : trainers, team.'
+          'The passed list does not exist. Possible lists are : trainers, team.'
+          )
+        }
+        
+      state.activeList = payload
+      const listState = state[state.activeList]
+
+      listState.filtered = utils.ifIncludes(state.activeDistricts, listState.all, 'district')
+      listState.searched = listState.filtered
+    },
+
+    toggleDistricts (state, payload) {
+      const listState = state[state.activeList]
+      const index = state.activeDistricts.indexOf(payload)
+
+      if (!DISTRICTS.includes(payload)) {
+        throw new Error(
+          'The passed district does not exist.'
         )
       }
 
-      state.activeView = payload
+      if (index > -1) {
+        state.activeDistricts.splice(index, 1)
+      } else {
+        state.activeDistricts.push(payload)
+      }
+
+      listState.filtered = utils.ifIncludes(state.activeDistricts, listState.all, 'district')
+      listState.searched = listState.filtered
     },
 
-    deduceDistricts (state) {
-      let districtsArray = []
+    search (state, payload) {
+      const listState = state[state.activeList]
+      const sanitizedPayload = utils.sanitizeString(payload)
+      
+      if (payload === '') {
+        return listState.searched = listState.filtered
+      }
 
-      // Add trainers related districts
-      districtsArray.push(state.trainers.all.reduce((acc, trainer) => {
-        if (!acc.includes(trainer.district)) {
-          acc.push(trainer.district)
-        }
-        
-        return acc
-      }, []))
-
-      // TODO Add team related districts
-
-      state.districts = [...new Set([].concat(...districtsArray))]
-    },
-
-    filter (state, payload) {
-      utils.mutations.filter(state.trainers, payload)
-      utils.mutations.filter(state.team, payload)
+      listState.searched = listState.filtered.filter(employee => 
+        Object.keys(employee).some(key => {
+          if(typeof employee[key] === 'string') {
+            const sanitizedEmployee = utils.sanitizeString(employee[key])
+            return sanitizedEmployee.includes(sanitizedPayload)
+          }
+  
+          return false
+        })
+      )
     }
   },
   modules: {
@@ -54,5 +91,5 @@ export default new Vuex.Store({
     team,
     me
   },
-  strict: debug
+  strict: true
 })

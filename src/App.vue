@@ -17,8 +17,8 @@
     
     <transition name="component-fade">
       <keep-alive>
-        <TeamList v-if="logged === true && $store.state.activeView === 'team'" />
-        <TrainerList v-if="logged === true && $store.state.activeView === 'trainers'"/>
+        <TeamList v-if="logged === true && $store.state.activeList === 'team'" />
+        <TrainerList v-if="logged === true && $store.state.activeList === 'trainers'"/>
       </keep-alive>
     </transition>
   </div>
@@ -64,7 +64,6 @@
               this.$store.dispatch('team/fetchTeam', client),
               this.$store.dispatch('trainers/fetchTrainers', client)
             ]))
-            .then(() => this.$store.commit('deduceDistricts'))
             .then(() => this.$root.$emit('stoploader'))
             .catch(error => {
               if (error.status >= 400) {
@@ -127,5 +126,8 @@ body
   transition: opacity .3s
 .component-fade-enter, .component-fade-leave-to, .component-fade-enter-active
   opacity: 0
+
+i.material-icons
+  vertical-align: middle
 
 </style>

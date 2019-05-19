@@ -29,9 +29,7 @@ class TrainerModel extends Model {
 
   formatPayloadFromgAPI (payload) {
     const formattedPayload = {}
-    formattedPayload.id = this._hashCode(
-      payload[5] + Math.random(100) + '' + new Date().getMilliseconds()
-    )
+    formattedPayload.id = this.generateId()
     formattedPayload.firstname = payload[4]
     formattedPayload.lastname = payload[3]
     formattedPayload.email = payload[5]

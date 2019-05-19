@@ -1,14 +1,11 @@
 <template>
   <nav id="sidebar">
     <h1>Simplon People</h1>
-    <a v-on:click="switchView('trainers')" id="trainers-link" class="view-link active">Formateur⋅rice⋅s</a>
-    <a v-on:click="switchView('team')" id="team-link" class="view-link">DIUT / CME / PP</a>
+    <a v-on:click="switchList('trainers')" id="trainers-link" class="list-link active">Formateur⋅rice⋅s</a>
+    <a v-on:click="switchList('team')" id="team-link" class="list-link">DIUT / CME / PP</a>
     <ul>
-      <li>
-        <a v-on:click="all" class="active">Toutes régions</a>
-      </li>
       <li v-for="district in districts" v-bind:key="district">
-        <a v-on:click="filter">{{ district }}</a>
+        <a v-on:click="toggleDistricts">{{ district }}</a>
       </li>
     </ul>
   </nav>
@@ -25,29 +22,25 @@
       })
     },
     methods: {
-      switchView (name) {
+      switchList (name) {
         const target = document.querySelector('#' + name + '-link')
         const parent = target.parentElement
        
-        parent.querySelectorAll('a.view-link').forEach(a => a.className = 'view-link')
+        parent.querySelectorAll('a.list-link').forEach(a => a.className = 'list-link')
         target.className = target.className + ' active'
         
-        this.$store.commit('switchView', name)
+        this.$store.commit('switchList', name)
       },
-      setActive (target) {
-        const listElement = target.parentElement.parentElement
-        listElement.querySelectorAll('li a').forEach(a => a.className = '')
-        target.className = 'active'
+      toggleActive (target) {
+        if (target.className === 'active') {
+          target.className = ''
+        } else {
+          target.className = 'active'
+        }
       },
-      filter (e) {
-        this.setActive(e.target)
-
-        this.$store.commit(`filter`, e.target.innerHTML.trim())
-      },
-      all (e) {
-        this.setActive(e.target)
-        
-        this.$store.commit(`filter`, '')
+      toggleDistricts (e) {
+        this.toggleActive(e.target)
+        this.$store.commit(`toggleDistricts`, e.target.innerHTML.trim())
       }
     }
   }

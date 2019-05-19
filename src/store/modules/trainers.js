@@ -2,7 +2,8 @@ import TrainerModel from '../models/TrainerModel'
 
 const state = {
   all: [],
-  filtered: []
+  filtered: [],
+  searched: []
 }
 
 const getters = {
@@ -32,6 +33,7 @@ const mutations = {
   fetchTrainers (state, trainers) {
     state.all = trainers.map(trainer => new TrainerModel(trainer))
     state.filtered = state.all
+    state.searched = state.filtered
   },
 
   addTrainer (state, trainer) {

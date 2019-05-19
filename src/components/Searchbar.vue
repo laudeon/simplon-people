@@ -16,7 +16,7 @@
     },
     watch: {
       spayload: function(newPlayload) {
-        this.$store.commit('filter', newPlayload)
+        this.$store.commit('search', newPlayload)
       }
     }
   }

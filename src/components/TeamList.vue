@@ -2,9 +2,9 @@
   <section id="team">
     <p>{{ team.length }} collaborateur⋅rice⋅s</p>
       <section id="team-list" role="list">
-        <article v-for="employee in team" :key="employee.id">
+        <article v-for="employee in team" :key="employee.id" :class="{partner: employee.partnership === 'Partenaire'}">
           <h1 v-on:click="showModal(employee.email)">{{ employee.firstname }} {{ employee.lastname }}</h1>
-          <p><strong>email</strong> {{ employee.email }}</p>
+          <p><i class="material-icons">email</i> {{ employee.email }}</p>
           <modal :name="employee.email">
             <ul>
               <li><strong>email</strong> {{ employee.email }}</li>
@@ -25,7 +25,7 @@
     name: 'team',
     computed: {
       ...mapState('team', {
-        team: state => state.filtered
+        team: state => state.searched
       })
     },
     methods: {
@@ -42,7 +42,7 @@
     padding: 1rem 0 0 2rem
     background: #eeeeee
 
-    p
+    > p
       text-align: left
       color: #929292
       font-size: .8rem

@@ -2,7 +2,8 @@ import EmployeeModel from '../models/EmployeeModel'
 
 const state = {
   all: [],
-  filtered: []
+  filtered: [],
+  searched: []
 }
 
 const getters = {
@@ -32,6 +33,7 @@ const mutations = {
   fetchTeam (state, team) {
     state.all = team.map(employee => new EmployeeModel(employee))
     state.filtered = state.all
+    state.searched = state.filtered
   },
 
   addEmployee (state, employee) {
