@@ -129,5 +129,7 @@ body
 
 i.material-icons
   vertical-align: middle
+  font-size: 1.2rem
+  margin-right: .2rem
 
 </style>

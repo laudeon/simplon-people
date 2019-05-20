@@ -6,7 +6,6 @@ import Loading from 'vue-loading-overlay'
 import VModal from 'vue-js-modal'
 
 import App from './App.vue'
-// import router from './router'
 import store from './store'
 import errorHandler from './plugins/errorHandler'
 
@@ -38,7 +37,6 @@ Vue.use(VModal)
 Vue.use(errorHandler)
 
 const app = new Vue({
-  // router,
   store,
   render: h => h(App)
 }).$mount('#app')
