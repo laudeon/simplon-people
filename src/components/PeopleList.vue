@@ -16,13 +16,7 @@
             </section>
             
             <section class="more-info">
-              <slot v-bind:people="people">
-                <ul>
-                  <li><i class="material-icons">map</i> {{ people.district }}</li>
-                  <li><i class="material-icons">location_city</i> {{ people.city }}</li>
-                  <li><i class="material-icons">category</i> {{ people.skillsSet }}</li>
-                </ul>
-              </slot>
+              <slot v-bind:people="people"></slot>
             </section>
           </div>
         </modal>
