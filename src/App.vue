@@ -97,6 +97,14 @@
 body
   padding: 0
 
+a
+  text-decoration: none
+
+ul
+  list-style: none
+  padding: 0
+  margin: 0
+
 #app
   font-family: 'Ubuntu', sans-serif
   -webkit-font-smoothing: antialiased
@@ -104,6 +112,7 @@ body
   color: #323232
   font-size: 1rem
   padding-bottom: 2rem
+  
   
   // Home signout
   section#intro
@@ -118,11 +127,6 @@ body
       margin: 0
       font-size: 3rem
       font-weight: 200
-  
-  ul
-    list-style: none
-    padding: 0
-    margin: 0
 
 // Fix for the loader
 .vld-overlay .vld-background

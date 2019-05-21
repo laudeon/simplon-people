@@ -53,24 +53,23 @@ nav#sidebar
   bottom: 0
   left: 0
   min-width: 220px
-  //  width: 10vw
   background: rgb(255,44,97)
   background: linear-gradient(180deg, rgba(206,0,51,1) 44%, rgba(162,0,41,1) 100%)
   color: #ffffff
 
   > h1
-    background: #ffffff
-    margin: 0
-    color: #ce0033
     height: 5rem
+    margin: 0
     padding: 1.5rem
-    text-align: center
+    background: #ffffff
+    color: #ce0033
     font-size: 1.4rem
+    text-align: center
 
   ul
-    list-style: none
     margin: 0
     padding: 0 0 0 1rem
+    list-style: none
     
 
     li
@@ -104,11 +103,10 @@ nav#sidebar
   > a
     display: block
     padding: 1rem
+    margin: .1rem 0
+    background: rgba(255, 255, 255, 0)
     color: #ffffff
     font-weight: 700
-    background: rgba(255, 255, 255, 0)
-    text-decoration: none
-    margin: .1rem 0
     transition: .2s
 
     &:hover
