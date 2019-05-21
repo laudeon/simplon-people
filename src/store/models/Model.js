@@ -1,4 +1,12 @@
 export default class Model {
+  id = ''
+  firstname = ''
+  lastname = ''
+  email = ''
+  role = ''
+  district = ''
+  city = ''
+  
   generateId() {
     const str = this.email + Math.random(100) + '' + new Date().getMilliseconds()
     return str.split('').reduce((prevHash, currVal) =>

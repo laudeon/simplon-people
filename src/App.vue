@@ -94,10 +94,6 @@
 *, *::after, *::before
   box-sizing: border-box
 
-/** Fix for the loader */
-.vld-overlay .vld-background
-  opacity: 1 !important
-
 body
   padding: 0
 
@@ -109,6 +105,7 @@ body
   font-size: 1rem
   padding-bottom: 2rem
   
+  // Home signout
   section#intro
     text-align: center
     margin: 20vh auto 6rem auto
@@ -121,12 +118,23 @@ body
       margin: 0
       font-size: 3rem
       font-weight: 200
+  
+  ul
+    list-style: none
+    padding: 0
+    margin: 0
 
+// Fix for the loader
+.vld-overlay .vld-background
+  opacity: 1 !important
+
+// Transition effect between components
 .component-fade-enter-active, .component-fade-leave-active
   transition: opacity .3s
 .component-fade-enter, .component-fade-leave-to, .component-fade-enter-active
   opacity: 0
 
+// Fix material icon default UI
 i.material-icons
   vertical-align: middle
   font-size: 1.2rem

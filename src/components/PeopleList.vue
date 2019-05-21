@@ -1,23 +1,28 @@
 <template>
   <section class="people">
-    <p>{{ trainers.length }} formateurs</p>
+    <p>{{ list.length }} {{ people_type }}</p>
+    
     <section class="people-list" role="list">
-      <article v-for="trainer in trainers" :key="trainer.id" :class="{partner: trainer.partnership === 'Partenaire'}">
-        <h1 v-on:click="showModal(trainer.email)">{{ trainer.firstname }} {{ trainer.lastname }}</h1>
-        <p><i class="material-icons">email</i> {{ trainer.email }}</p>
-        <p><i class="material-icons">location_city</i> {{ trainer.city }}</p>
-        <modal :name="trainer.email" height="auto" width="70%">
+      <article v-for="people in list" :key="people.id" :class="{partner: people.partnership === 'Partenaire'}">
+        <h1 v-on:click="showModal(people.email)">{{ people.firstname }} {{ people.lastname }}</h1>
+        <p><i class="material-icons">email</i> {{ people.email }}</p>
+        <p><i class="material-icons">location_city</i> {{ people.city }}</p>
+        
+        <modal :name="people.email" height="auto" width="70%">
           <div class="modal-container">
             <section class="name">
-              <h1>{{ trainer.firstname }} {{ trainer.lastname }}</h1>
-              <p><i class="material-icons">email</i> {{ trainer.email }}</p>
+              <h1>{{ people.firstname }} {{ people.lastname }}</h1>
+              <p><i class="material-icons">email</i> {{ people.email }}</p>
             </section>
+            
             <section class="more-info">
-              <ul>
-                <li><i class="material-icons">map</i> {{ trainer.district }}</li>
-                <li><i class="material-icons">location_city</i> {{ trainer.city }}</li>
-                <li><i class="material-icons">category</i> {{ trainer.skillsSet }}</li>
-              </ul>
+              <slot v-bind:people="people">
+                <ul>
+                  <li><i class="material-icons">map</i> {{ people.district }}</li>
+                  <li><i class="material-icons">location_city</i> {{ people.city }}</li>
+                  <li><i class="material-icons">category</i> {{ people.skillsSet }}</li>
+                </ul>
+              </slot>
             </section>
           </div>
         </modal>
@@ -27,14 +32,11 @@
 </template>
 
 <script>
-  import { mapState } from 'vuex'
-
   export default {
-    name: 'trainers',
-    computed: {
-      ...mapState('trainers', {
-        trainers: state => state.searched
-      })
+    name: 'peopleList',
+    props: {
+      list: { type: Array, default: () => [] },
+      people_type: { type: String, default: 'People' }
     },
     methods: {
       showModal (email) {
@@ -44,7 +46,7 @@
   }
 </script>
 
-<style lang="sass" scoped>
+<style lang="sass">
   section.people  
     margin-left: 220px
     padding: 1rem 0 0 2rem
@@ -87,13 +89,8 @@
           &:hover
             cursor: pointer
 
-        ul
-          list-style: none
-          padding: 0
-          margin: 0
-
-          li
-            line-height: 2rem
+        li
+          line-height: 2rem
 
         .v--modal-overlay .v--modal-box.v--modal
           div.modal-container

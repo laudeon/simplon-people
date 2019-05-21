@@ -52,7 +52,8 @@ nav#sidebar
   top: 0
   bottom: 0
   left: 0
-  width: 220px
+  min-width: 220px
+  //  width: 10vw
   background: rgb(255,44,97)
   background: linear-gradient(180deg, rgba(206,0,51,1) 44%, rgba(162,0,41,1) 100%)
   color: #ffffff

@@ -1,15 +1,11 @@
 import Model from './Model'
 
 class TrainerModel extends Model {
-  id = ''
-  firstname = ''
-  lastname = ''
-  email = ''
   skillsSet = ''
-  district = ''
-  city = ''
   partnership = false
   status = ''
+  simplonline = 0
+  activated = 0
 
   constructor (payload) {
     super()
@@ -25,6 +21,8 @@ class TrainerModel extends Model {
     this.city = payload.city || this.city
     this.partnership = payload.partnership || this.partnership
     this.status = payload.status || this.status
+    this.simplonline = payload.simplonline || this.simplonline
+    this.activated = payload.activated || this.activated
   }
 
   formatPayloadFromgAPI (payload) {
@@ -38,6 +36,8 @@ class TrainerModel extends Model {
     formattedPayload.skillsSet = payload[6]
     formattedPayload.partnership = payload[8]
     formattedPayload.status = payload[9]
+    formattedPayload.simplonline = payload[10]
+    formattedPayload.activated = payload[12]
 
     return formattedPayload
   }

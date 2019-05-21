@@ -1,14 +1,7 @@
 import Model from './Model'
 
 class EmployeeModel extends Model {
-  id = ''
-  firstname = ''
-  lastname = ''
-  email = ''
-  role = ''
-  district = ''
-  city = ''
-  partnership = false
+  partnership = ''
   status = ''
 
   constructor (payload) {
