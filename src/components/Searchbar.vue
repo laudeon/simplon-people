@@ -1,6 +1,6 @@
 <template>
   <header id="searchbar">
-    <form>
+    <form @submit.prevent>
       <input type="text" name="s-payload" id="search-input" v-model="spayload" placeholder="Rechercher...">
     </form>
   </header>

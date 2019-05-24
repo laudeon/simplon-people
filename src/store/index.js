@@ -22,14 +22,15 @@ const DISTRICTS = [
   "Nouvelle-Aquitaine",
   "Occitanie",
   "Pays de la Loire",
-  "Provence-Alpes-Côte d’Azur"
+  "Provence-Alpes-Côte d'Azur"
 ]
 
 export default new Vuex.Store({
   state: {
     activeList: LISTS[0],
     districts: DISTRICTS,
-    activeDistricts: []
+    activeDistrict: '',
+    lastSearch: ''
   },
   mutations: {
     switchList (state, payload) {
@@ -42,13 +43,13 @@ export default new Vuex.Store({
       state.activeList = payload
       const listState = state[state.activeList]
 
-      listState.filtered = utils.ifIncludes(state.activeDistricts, listState.all, 'district')
+      listState.filtered = utils.filterBy(state.activeDistrict, listState.all, 'district')
+      listState.filtered = utils.filterAll(state.lastSearch, listState.filtered)
       listState.searched = listState.filtered
     },
 
     toggleDistricts (state, payload) {
       const listState = state[state.activeList]
-      const index = state.activeDistricts.indexOf(payload)
 
       if (!DISTRICTS.includes(payload)) {
         throw new Error(
@@ -56,34 +57,28 @@ export default new Vuex.Store({
         )
       }
 
-      if (index > -1) {
-        state.activeDistricts.splice(index, 1)
+      if (payload === state.activeDistrict) {
+        state.activeDistrict = ''
       } else {
-        state.activeDistricts.push(payload)
+        state.activeDistrict = payload
       }
 
-      listState.filtered = utils.ifIncludes(state.activeDistricts, listState.all, 'district')
+      listState.filtered = utils.filterBy(state.activeDistrict, listState.all, 'district')
+      listState.filtered = utils.filterAll(state.lastSearch, listState.filtered)
       listState.searched = listState.filtered
     },
 
     search (state, payload) {
       const listState = state[state.activeList]
       const sanitizedPayload = utils.sanitizeString(payload)
+
+      state.lastSearch = sanitizedPayload
       
-      if (payload === '') {
+      if (sanitizedPayload === '') {
         return listState.searched = listState.filtered
       }
 
-      listState.searched = listState.filtered.filter(employee => 
-        Object.keys(employee).some(key => {
-          if(typeof employee[key] === 'string') {
-            const sanitizedEmployee = utils.sanitizeString(employee[key])
-            return sanitizedEmployee.includes(sanitizedPayload)
-          }
-  
-          return false
-        })
-      )
+      listState.searched = utils.filterAll(sanitizedPayload, listState.filtered)
     }
   },
   modules: {

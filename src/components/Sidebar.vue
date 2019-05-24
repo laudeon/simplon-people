@@ -32,11 +32,16 @@
         this.$store.commit('switchList', name)
       },
       toggleActive (target) {
-        if (target.className === 'active') {
+        const parentUl = target.parentElement.parentElement
+
+        if (target.className === 'active-district') {
           target.className = ''
-        } else {
-          target.className = 'active'
+          
+          return
         }
+
+        parentUl.querySelectorAll('li a').forEach(a => a.className = '')
+        target.className = 'active-district'
       },
       toggleDistricts (e) {
         this.toggleActive(e.target)
@@ -95,10 +100,10 @@ nav#sidebar
           background: none
           transition: .2s
 
-        &.active::after
+        &.active-district::after
           background: #ffffff
         
-        &.active
+        &.active-district
           opacity: 1
   > a
     display: block
