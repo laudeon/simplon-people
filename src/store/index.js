@@ -44,8 +44,7 @@ export default new Vuex.Store({
       const listState = state[state.activeList]
 
       listState.filtered = utils.filterBy(state.activeDistrict, listState.all, 'district')
-      listState.filtered = utils.filterAll(state.lastSearch, listState.filtered)
-      listState.searched = listState.filtered
+      listState.searched = utils.filterAll(state.lastSearch, listState.filtered)
     },
 
     toggleDistricts (state, payload) {
@@ -64,8 +63,7 @@ export default new Vuex.Store({
       }
 
       listState.filtered = utils.filterBy(state.activeDistrict, listState.all, 'district')
-      listState.filtered = utils.filterAll(state.lastSearch, listState.filtered)
-      listState.searched = listState.filtered
+      listState.searched = utils.filterAll(state.lastSearch, listState.filtered)
     },
 
     search (state, payload) {
@@ -75,7 +73,8 @@ export default new Vuex.Store({
       state.lastSearch = sanitizedPayload
       
       if (sanitizedPayload === '') {
-        return listState.searched = listState.filtered
+        listState.searched = listState.filtered
+        return
       }
 
       listState.searched = utils.filterAll(sanitizedPayload, listState.filtered)

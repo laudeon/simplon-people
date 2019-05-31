@@ -11,7 +11,7 @@
     
     <Sidebar v-if="logged === true" />
     
-    <GoogleSingIn :callback="gSignInCallback" :status="logged" />
+    <GoogleSingIn :callback="gSignInCallback" :logged="logged" />
     
     <Searchbar v-if="logged === true" />
     

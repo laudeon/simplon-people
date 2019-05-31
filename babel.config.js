@@ -1,5 +1,11 @@
 module.exports = {
   presets: [
-    '@vue/app'
+    [
+      '@vue/app',
+      { 
+        corejs: 2,
+        useBuiltIn: 'usage'
+      }
+    ]
   ]
 }

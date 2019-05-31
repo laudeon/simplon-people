@@ -15,7 +15,7 @@ describe('Homepage', () => {
 describe('Signing in', () => {
   beforeEach( () => {
     getStore().then(store => {
-      store.commit('me/signIn', true)
+      store.commit('me/logged', true)
     })
   })
 

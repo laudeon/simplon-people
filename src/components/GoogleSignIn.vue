@@ -1,7 +1,7 @@
 <template>
   <section id="googleauth">
-    <button id="google-signin" v-if="status === false" type="button" v-on:click="signIn">Se connecter avec Google</button>
-    <button id="google-signout" v-if="status === true" type="button" v-on:click="signOut">Se déconnecter</button>
+    <button id="google-signin" v-if="logged === false" type="button" v-on:click="signIn">Se connecter avec Google</button>
+    <button id="google-signout" v-if="logged === true" type="button" v-on:click="signOut">Se déconnecter</button>
   </section>
 </template>
 
@@ -10,7 +10,7 @@
     name: 'googleauth',
     props: {
       callback: Function,
-      status: Boolean
+      logged: Boolean
     },
     created () {
       this.$gapi.isSignedIn()
@@ -19,12 +19,12 @@
     },
     methods: {
       signIn () {
-        this.$gapi.signIn()
+        return this.$gapi.signIn()
           .then(() => this.callback(true))
           .catch(window.console.error)
       },
       signOut () {
-        this.$gapi.signOut()
+        return this.$gapi.signOut()
           .then(() => this.callback(false))
           .catch(window.console.error)
       }

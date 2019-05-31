@@ -23,7 +23,7 @@
     },
     methods: {
       switchList (name) {
-        const target = document.querySelector('#' + name + '-link')
+        const target = this.$el.querySelector('#' + name + '-link')
         const parent = target.parentElement
        
         parent.querySelectorAll('a.list-link').forEach(a => a.className = 'list-link')
