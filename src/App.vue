@@ -4,7 +4,7 @@
     
     <section id="intro" v-if="logged === false">
       <p>
-        Qui c'est ? Où est-elle ? Qu'est-ce qu'il fait ?
+        Qui c'est ? Où est-elle ? Que fait-il ?
       </p>
       <h1>Bienvue sur <strong>le répertoire des équipes de Simplon.</strong></h1>
     </section>
