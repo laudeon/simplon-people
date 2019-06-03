@@ -139,9 +139,10 @@ ul
   opacity: 0
 
 // Fix material icon default UI
-i.material-icons
+i.material-icons-outlined
   vertical-align: middle
-  font-size: 1.2rem
-  margin-right: .2rem
+  font-size: 1.3rem
+  margin-right: .5rem
+  color: #212121
 
 </style>

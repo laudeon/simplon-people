@@ -2,9 +2,8 @@
   <people-list :list="team" people-type="Collaborateur⋅rice⋅s">
     <template v-slot:default="slotProps">
       <ul>
-        <li><i class="material-icons">map</i> {{ slotProps.people.district }}</li>
-        <li><i class="material-icons">location_city</i> {{ slotProps.people.city }}</li>
-        <li><i class="material-icons">category</i> {{ slotProps.people.role }}</li>
+        <li><i class="material-icons-outlined">map</i> {{ slotProps.people.district }}</li>
+        <li><i class="material-icons-outlined">location_city</i> {{ slotProps.people.city }}</li>
       </ul>
     </template>
   </people-list>

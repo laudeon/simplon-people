@@ -3,16 +3,22 @@
     <p>{{ list.length }} {{ people_type }}</p>
     
     <section class="people-list" role="list">
-      <article v-for="people in list" :key="people.id" :class="{partner: people.partnership === 'Partenaire'}">
-        <h1 v-on:click="showModal(people.email)">{{ people.firstname }} {{ people.lastname }}</h1>
-        <p><i class="material-icons">email</i> {{ people.email }}</p>
-        <p><i class="material-icons">location_city</i> {{ people.city }}</p>
+      <article v-for="people in list" :key="people.id">
+        <h1 v-on:click="showModal(people.email)">
+          {{ people.firstname }} {{ people.lastname }}
+          <br><small>{{ people.role }}</small>
+        </h1>
+        <p><i class="material-icons-outlined">email</i> {{ people.email }}</p>
+        <p><i class="material-icons-outlined">location_city</i> {{ people.city }} - <small>{{ people.partnership }}</small></p>
         
         <modal :name="people.email" height="auto" width="70%">
           <div class="modal-container">
             <section class="name">
-              <h1>{{ people.firstname }} {{ people.lastname }}</h1>
-              <p><i class="material-icons">email</i> {{ people.email }}</p>
+              <h1>
+                {{ people.firstname }} {{ people.lastname }}
+                <br><small>{{ people.role }}</small>
+              </h1>
+              <p><i class="material-icons-outlined">email</i> {{ people.email }}</p>
             </section>
             
             <section class="more-info">
@@ -63,15 +69,11 @@
         margin: 1rem 1rem
         padding: 1rem 2rem
         border: 1px solid #eeeeee
-        border-top: 2px solid #ce0033
         background: #ffffff
         text-align: left
         word-wrap: break-word
         box-shadow: 0 1px 1px rgba(0,0,0,.3)
         transition: .3s
-
-        &.partner
-          border-top: 2px solid #929292
 
         &:hover
           box-shadow: 0 5px 16px rgba(0,0,0,.25)
@@ -82,6 +84,11 @@
           
           &:hover
             cursor: pointer
+          
+          small
+            font-size: 1.2rem
+            font-weight: normal
+            color: #ce0033
 
         li
           line-height: 2rem

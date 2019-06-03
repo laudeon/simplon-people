@@ -6,6 +6,9 @@ export default class Model {
   role = ''
   district = ''
   city = ''
+  role = ''
+  partnership = ''
+  status = ''
   
   generateId() {
     const str = this.email + Math.random(100) + '' + new Date().getMilliseconds()

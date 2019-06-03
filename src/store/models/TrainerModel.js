@@ -1,9 +1,6 @@
 import Model from './Model'
 
 class TrainerModel extends Model {
-  skillsSet = ''
-  partnership = false
-  status = ''
   simplonline = 0
   activated = 0
 
@@ -16,7 +13,7 @@ class TrainerModel extends Model {
     this.firstname = payload.firstname || this.firstname
     this.lastname = payload.lastname || this.lastname
     this.email = payload.email || this.email
-    this.skillsSet = payload.skillsSet || this.skillsSet
+    this.role = payload.role || this.role
     this.district = payload.district || this.district
     this.city = payload.city || this.city
     this.partnership = payload.partnership || this.partnership
@@ -33,11 +30,11 @@ class TrainerModel extends Model {
     formattedPayload.email = payload[5]
     formattedPayload.district = payload[0]
     formattedPayload.city = payload[1]
-    formattedPayload.skillsSet = payload[6]
-    formattedPayload.partnership = payload[8]
-    formattedPayload.status = payload[9]
-    formattedPayload.simplonline = payload[10]
-    formattedPayload.activated = payload[12]
+    formattedPayload.role = payload[6]
+    formattedPayload.partnership = payload[9]
+    formattedPayload.status = payload[10]
+    formattedPayload.simplonline = payload[11]
+    formattedPayload.activated = payload[13]
 
     return formattedPayload
   }
