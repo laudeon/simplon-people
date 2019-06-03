@@ -19,6 +19,8 @@ const gapiConfig = {
   discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"]
 }
 
+window.console.log(gapiConfig)
+
 Vue.config.productionTip = false
 
 Vue.use(VueGoogleApi, gapiConfig)
