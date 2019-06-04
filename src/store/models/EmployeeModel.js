@@ -15,6 +15,7 @@ class EmployeeModel extends Model {
     this.city = payload.city || this.city
     this.status = payload.status || this.status
     this.partnership = payload.partnership || this.partnership
+    this.activated = payload.activated || this.activated
   }
 
   formatPayloadFromgAPI (payload) {
@@ -28,6 +29,7 @@ class EmployeeModel extends Model {
     formattedPayload.role = payload[2]
     formattedPayload.status = payload[9]
     formattedPayload.partnership = payload[8]
+    formattedPayload.activated = payload[12]
 
     return formattedPayload
   }

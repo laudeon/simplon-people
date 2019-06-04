@@ -8,6 +8,8 @@ import VModal from 'vue-js-modal'
 import App from './App.vue'
 import store from './store'
 import errorHandler from './plugins/errorHandler'
+import accountFilter from './filters/account'
+import simplonlineFilter from './filters/simplonline'
 
 import 'vue-flash-message/dist/vue-flash-message.min.css'
 import 'vue-loading-overlay/dist/vue-loading.css'
@@ -35,6 +37,9 @@ Vue.use(Loading, {
 })
 Vue.use(VModal)
 Vue.use(errorHandler)
+
+Vue.filter('isSOCAccountActive', accountFilter)
+Vue.filter('hasSimplonline', simplonlineFilter)
 
 const app = new Vue({
   store,

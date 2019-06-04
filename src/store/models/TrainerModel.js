@@ -2,7 +2,6 @@ import Model from './Model'
 
 class TrainerModel extends Model {
   simplonline = 0
-  activated = 0
 
   constructor (payload) {
     super()

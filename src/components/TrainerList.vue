@@ -5,8 +5,8 @@
         <li><i class="material-icons-outlined">map</i> {{ slotProps.people.district }}</li>
         <li><i class="material-icons-outlined">location_city</i> {{ slotProps.people.city }}</li>
         <li><i class="material-icons-outlined">assignment</i> {{ slotProps.people.status }}</li>
-        <li><i class="material-icons-outlined">devices</i> {{ slotProps.people.simplonline }}</li>
-        <li><i class="material-icons-outlined">check_circle_outline</i> {{ slotProps.people.activated }}</li>
+        <li><i class="material-icons-outlined">devices</i> {{ slotProps.people.simplonline | hasSimplonline }}</li>
+        <li><i class="material-icons-outlined">check_circle_outline</i> {{ slotProps.people.activated | isSOCAccountActive }}</li>
       </ul>
     </template>
   </people-list>
