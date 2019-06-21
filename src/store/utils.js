@@ -28,4 +28,6 @@ const filterAll = function (payload, data) {
   )
 }
 
-export default { sanitizeString, ifIncludes, filterBy, filterAll }
+const objectToArray = object => Object.keys(object).map(key => object[key])
+
+export default { sanitizeString, ifIncludes, filterBy, filterAll, objectToArray }

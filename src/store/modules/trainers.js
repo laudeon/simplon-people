@@ -1,4 +1,5 @@
 import TrainerModel from '../models/TrainerModel'
+import utils from '../utils'
 
 const state = {
   all: [],
@@ -22,10 +23,21 @@ const actions = {
     })
   },
 
-  async addTrainer ({ commit }, payload) {
+  async addTrainer ({ commit }, { gclient, payload, range }) {
     const trainer = new TrainerModel(payload)
-    // await post trainer...
-    commit('addTrainer', trainer)
+    const valueRange = gclient.sheets.newValueRange()
+
+    // Expected format:
+    // [[... Cell values], ...more rows]
+    valueRange.values = [utils.objectToArray(payload)]
+
+    return gclient.sheets.spreadsheets.values.update({
+      valueRange,
+      spreadsheetId: process.env.VUE_APP_SPREADSHEET_ID,
+      range: 'Formateur.rices!' + range
+    }).then(response => {
+      commit('addTrainer', payload)
+    })    
   }
 }
 
