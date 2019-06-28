@@ -3,11 +3,12 @@ import Model from './Model'
 class TrainerModel extends Model {
   simplonline = 0
 
-  constructor (payload) {
+  constructor (payload, key) {
     super()
 
     if (Array.isArray(payload)) payload = this.formatPayloadFromgAPI(payload)
 
+    this.rowNumber = key + 3 // plus two titles rows at the doc start
     this.id = payload.id || this.id
     this.firstname = payload.firstname || this.firstname
     this.lastname = payload.lastname || this.lastname

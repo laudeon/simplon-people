@@ -10,6 +10,7 @@ export default class Model {
   partnership = ''
   status = ''
   activated = 0
+  rowNumber
   
   generateId() {
     const str = this.email + Math.random(100) + '' + new Date().getMilliseconds()

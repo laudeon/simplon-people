@@ -23,8 +23,7 @@ const actions = {
     })
   },
 
-  async addTrainer ({ commit }, { gclient, payload, range }) {
-    const trainer = new TrainerModel(payload)
+  async updateTrainer ({ commit }, { gclient, payload }) {
     const valueRange = gclient.sheets.newValueRange()
 
     // Expected format:
@@ -34,8 +33,24 @@ const actions = {
     return gclient.sheets.spreadsheets.values.update({
       valueRange,
       spreadsheetId: process.env.VUE_APP_SPREADSHEET_ID,
-      range: 'Formateur.rices!' + range
-    }).then(response => {
+      range: 'Formateur.rices!A' + payload.rowNumber
+    }).then(() => {
+      commit('addTrainer', payload)
+    })    
+  },
+
+  async addTrainer ({ commit }, { gclient, payload, rownNumber }) {
+    const valueRange = gclient.sheets.newValueRange()
+
+    // Expected format:
+    // [[... Cell values], ...more rows]
+    valueRange.values = [utils.objectToArray(payload)]
+
+    return gclient.sheets.spreadsheets.values.update({
+      valueRange,
+      spreadsheetId: process.env.VUE_APP_SPREADSHEET_ID,
+      range: 'Formateur.rices!A' + rownNumber
+    }).then(() => {
       commit('addTrainer', payload)
     })    
   }
@@ -43,7 +58,7 @@ const actions = {
 
 const mutations = {
   fetchTrainers (state, trainers) {
-    state.all = trainers.map(trainer => new TrainerModel(trainer))
+    state.all = trainers.map((trainer, key) => new TrainerModel(trainer, key))
     state.filtered = state.all
     state.searched = state.filtered
   },

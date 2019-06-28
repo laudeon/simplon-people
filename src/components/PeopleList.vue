@@ -4,7 +4,7 @@
     
     <section class="people-list" role="list">
       <article v-for="people in list" :key="people.id">
-        <h1 v-on:click="showModal(people.email)">
+        <h1 @click="showModal(people.email)">
           {{ people.firstname }} {{ people.lastname }}
           <br><small>{{ people.role }}</small>
         </h1>
@@ -22,12 +22,15 @@
             </section>
             
             <section class="more-info">
-              <slot v-bind:people="people"></slot>
+              <slot name="modal" v-bind:people="people"></slot>
             </section>
           </div>
         </modal>
       </article>
     </section>
+    <div class="button-add">
+      <slot name="add"></slot>
+    </div>
   </section>
 </template>
 
@@ -51,11 +54,37 @@
     margin-left: 220px
     padding: 1rem 0 0 2rem
     background: #eeeeee
+    position: relative
 
     > p
       text-align: left
       color: #929292
       font-size: .8rem
+
+    > div.button-add
+        position: fixed
+        bottom: 1rem
+        right: 1rem
+
+        button
+          background: #ce0033
+          border: none
+          outline: none
+          width: 3rem
+          height: 3rem
+          border-radius: 100%
+          text-align: center
+          color: #ffffff
+          font-size: 3rem
+          line-height: 0
+          padding-bottom: .5rem
+          box-shadow: 1px 1px 10px rgba(0,0,0,.2)
+          transition: .2s
+
+          &:hover
+            cursor: pointer
+            box-shadow: 1px 1px 10px rgba(0,0,0,.5)
+
   
     section.people-list
       display: flex

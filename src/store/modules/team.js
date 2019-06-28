@@ -1,4 +1,5 @@
 import EmployeeModel from '../models/EmployeeModel'
+import utils from '../utils'
 
 const state = {
   all: [],
@@ -22,16 +23,42 @@ const actions = {
     })
   },
 
-  async addEmployee ({ commit }, payload) {
-    const employee = new EmployeeModel(payload)
-    // await post employee...
-    commit('addEmployee', employee)
+  async updateEmployee ({ commit }, { gclient, payload }) {
+    const valueRange = gclient.sheets.newValueRange()
+
+    // Expected format:
+    // [[... Cell values], ...more rows]
+    valueRange.values = [utils.objectToArray(payload)]
+
+    return gclient.sheets.spreadsheets.values.update({
+      valueRange,
+      spreadsheetId: process.env.VUE_APP_SPREADSHEET_ID,
+      range: 'DIUT ∕ CME ∕ PP!A' + payload.rowNumber
+    }).then(() => {
+      commit('addEmployee', payload)
+    })    
+  },
+
+  async addEmployee ({ commit }, { gclient, payload, rownNumber }) {
+    const valueRange = gclient.sheets.newValueRange()
+
+    // Expected format:
+    // [[... Cell values], ...more rows]
+    valueRange.values = [utils.objectToArray(payload)]
+
+    return gclient.sheets.spreadsheets.values.update({
+      valueRange,
+      spreadsheetId: process.env.VUE_APP_SPREADSHEET_ID,
+      range: 'DIUT ∕ CME ∕ PP!A' + rownNumber
+    }).then(() => {
+      commit('addEmployee', payload)
+    })    
   }
 }
 
 const mutations = {
   fetchTeam (state, team) {
-    state.all = team.map(employee => new EmployeeModel(employee))
+    state.all = team.map((employee, key) => new EmployeeModel(employee, key))
     state.filtered = state.all
     state.searched = state.filtered
   },
