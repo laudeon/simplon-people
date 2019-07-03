@@ -9,17 +9,30 @@
         <li><i class="material-icons-outlined">check_circle_outline</i> {{ slotProps.people.activated | isSOCAccountActive }}</li>
       </ul>
     </template>
-    <template v-slot:add="slotProps">
-      <button class="add" @click="showModal('addTrainer')">
-        +
-      </button>
+    <template v-slot:add>
+        <header>
+          <h1>
+            Ajouter un⋅e formateur⋅rice
+          </h1>
+        </header>
+        <section class="form">
+          <form @submit="addTrainer">
+            <div class="form-bloc">
+              <label for="firstname">Prénom</label>
+              <input type="text" name="firstname" id="firstname" v-model="trainer.firstname">
+            </div>
+
+            <div class="form-bloc">
+              <label for="firstname">Nom</label>
+              <input type="text" name="lastname" id="lastname" v-model="trainer.lastname">
+            </div>
+
+            <div class="form-bloc">
+              <button type="submit">Ajouter</button>
+            </div>
+          </form>
+        </section>
     </template>
-    <modal name="addTrainer" height="auto" width="70%">
-      <form @submit="addTrainer">
-        <input type="text" name="firstname" v-model="trainer.firstname">
-        <input type="text" name="lastname" v-model="trainer.lastname">
-      </form>
-    </modal>
   </people-list>
 </template>
 
@@ -46,10 +59,6 @@
       })
     },
     methods : {
-      showModal (payload) {
-        this.$modal.show(payload)
-      },
-
       addTrainer() {
 
       }

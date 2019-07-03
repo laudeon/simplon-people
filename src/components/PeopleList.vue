@@ -4,7 +4,7 @@
     
     <section class="people-list" role="list">
       <article v-for="people in list" :key="people.id">
-        <h1 @click="showModal(people.email)">
+        <h1 @click="$modal.show(people.email)">
           {{ people.firstname }} {{ people.lastname }}
           <br><small>{{ people.role }}</small>
         </h1>
@@ -29,7 +29,12 @@
       </article>
     </section>
     <div class="button-add">
-      <slot name="add"></slot>
+      <button class="add" @click="$modal.show('add')">
+        +
+      </button>
+      <modal name="add" height="auto" width="70%">
+        <slot name="add"></slot>
+      </modal>
     </div>
   </section>
 </template>
@@ -40,11 +45,6 @@
     props: {
       list: { type: Array, default: () => [] },
       people_type: { type: String, default: 'People' }
-    },
-    methods: {
-      showModal (email) {
-        this.$modal.show(email)
-      }
     }
   }
 </script>
@@ -122,19 +122,18 @@
         li
           line-height: 2rem
 
-        .v--modal-overlay .v--modal-box.v--modal
-          div.modal-container
-            display: flex
+  .v--modal-overlay .v--modal-box.v--modal div.modal-container
+      display: flex
 
-            section
-              flex-grow: 1
-              margin: 2rem
+      section
+        flex-grow: 1
+        margin: 2rem
 
-              &.name
-                min-width: 40%
-                border-right: 1px solid #ce0033
-            
-            h1
-              margin: 0
+        &.name
+          min-width: 40%
+          border-right: 1px solid #ce0033
+      
+      h1
+        margin: 0
 
 </style>
