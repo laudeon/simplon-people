@@ -1,4 +1,4 @@
 export default function hasAccessToSimplonline (value) {
-  if (!value) return 'Accès à Simplonline inactif'
+  if (!value || value == "0") return 'Accès à Simplonline inactif'
   return 'Accès à Simplonline actif'
 }

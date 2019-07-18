@@ -45,9 +45,12 @@
     data () {
       return {
         trainer: {
-          firstname: '',
-          lastname: '',
           district: '',
+          city: '',
+          role: '',
+          lastname: '',
+          firstname: '',
+          email: '',
           skillsSet: '',
           simplonline: 0
         }
@@ -55,12 +58,21 @@
     },
     computed: {
       ...mapState('trainers', {
-        trainers: state => state.searched
+        trainers: state => state.searched,
+        all: state => state.all
       })
     },
     methods : {
-      addTrainer() {
-
+      addTrainer(e) {
+        e.preventDefault()
+        const rowNumber = (this.all.length+2)
+        this.$gapi._libraryInit('client', { discoveryDocs: [ 'https://sheets.googleapis.com/$discovery/rest' ]})
+            .then(client => this.$store.dispatch('trainers/addTrainer', { gclient: client, payload: this.trainer, rowNumber }))
+            .catch(error => {
+              if (error.status >= 400) {
+                this.flash(this.$getErrorMessage(error.status), 'error')
+              }
+            })
       }
     },
     components: { PeopleList }

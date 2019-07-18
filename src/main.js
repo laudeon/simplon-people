@@ -17,7 +17,7 @@ import 'vue-loading-overlay/dist/vue-loading.css'
 const gapiConfig = {
   apiKey: process.env.VUE_APP_SPREADSHEET_API_KEY,
   clientId: process.env.VUE_APP_SPREADSHEET_CLIENT_ID,
-  scope: "https://www.googleapis.com/auth/spreadsheets.readonly",
+  scope: "https://www.googleapis.com/auth/spreadsheets",
   discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"]
 }
 

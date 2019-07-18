@@ -29,10 +29,10 @@
       </article>
     </section>
     <div class="button-add">
-      <button class="add" @click="$modal.show('add')">
+      <button class="add" @click="$modal.show(`add${people_type}`)">
         +
       </button>
-      <modal name="add" height="auto" width="70%">
+      <modal :name="'add'+people_type" height="auto" width="70%">
         <slot name="add"></slot>
       </modal>
     </div>
@@ -66,7 +66,7 @@
         bottom: 1rem
         right: 1rem
 
-        button
+        button.add
           background: #ce0033
           border: none
           outline: none
@@ -135,5 +135,15 @@
       
       h1
         margin: 0
+  
+  section.form form button
+    padding: .5rem 1rem
+    border: 1px solid #ce0033
+    background: none
+    border-radius: 3px
+    color: #ce0033
+
+    &:hover
+      cursor: pointer
 
 </style>

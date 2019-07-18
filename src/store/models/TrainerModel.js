@@ -8,7 +8,7 @@ class TrainerModel extends Model {
 
     if (Array.isArray(payload)) payload = this.formatPayloadFromgAPI(payload)
 
-    this.rowNumber = key + 3 // plus two titles rows at the doc start
+    this.rowNumber = key + 1 // plus two titles rows at the doc start
     this.id = payload.id || this.id
     this.firstname = payload.firstname || this.firstname
     this.lastname = payload.lastname || this.lastname
@@ -33,8 +33,8 @@ class TrainerModel extends Model {
     formattedPayload.role = payload[6]
     formattedPayload.partnership = payload[9]
     formattedPayload.status = payload[10]
-    formattedPayload.simplonline = payload[11]
-    formattedPayload.activated = payload[13]
+    formattedPayload.simplonline = payload[17]
+    formattedPayload.activated = payload[18]
 
     return formattedPayload
   }

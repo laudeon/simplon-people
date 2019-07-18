@@ -17,7 +17,7 @@ const actions = {
   async fetchTeam ({ commit }, gclient) {
     return gclient.sheets.spreadsheets.values.get({
       spreadsheetId: process.env.VUE_APP_SPREADSHEET_ID,
-      range: 'DIUT ∕ CME ∕ PP!A2:M'
+      range: 'DIUT ∕ CME ∕ PP!A2:T'
     }).then(response => {
       commit('fetchTeam', response.result.values)
     })
