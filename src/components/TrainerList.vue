@@ -6,7 +6,7 @@
         <li><i class="material-icons-outlined">location_city</i> {{ slotProps.people.city }}</li>
         <li><i class="material-icons-outlined">assignment</i> {{ slotProps.people.status }}</li>
         <li><i class="material-icons-outlined">devices</i> {{ slotProps.people.simplonline | hasSimplonline }}</li>
-        <li><i class="material-icons-outlined">check_circle_outline</i> {{ slotProps.people.activated | isSOCAccountActive }}</li>
+        <li><i class="material-icons-outlined">check_circle_outline</i> {{ slotProps.people.soc | isSOCAccountActive }}</li>
       </ul>
     </template>
     <template v-slot:add>
@@ -18,15 +18,50 @@
         <section class="form">
           <form @submit="addTrainer">
             <div class="form-bloc">
-              <label for="firstname">Prénom</label>
-              <input type="text" name="firstname" id="firstname" v-model="trainer.firstname">
+              <label for="firstname">Prénom *</label>
+              <input type="text" name="firstname" id="firstname" v-model="trainer.firstname" required>
             </div>
 
             <div class="form-bloc">
-              <label for="firstname">Nom</label>
-              <input type="text" name="lastname" id="lastname" v-model="trainer.lastname">
+              <label for="lastname">Nom *</label>
+              <input type="text" name="lastname" id="lastname" v-model="trainer.lastname" required>
             </div>
 
+            <div class="form-bloc">
+              <label for="district">Région *</label>
+              <input type="text" name="district" id="district" v-model="trainer.district" required>
+            </div>
+
+            <div class="form-bloc">
+              <label for="city">Fabrique *</label>
+              <input type="text" name="city" id="city" v-model="trainer.city" required>
+            </div>
+
+            <div class="form-bloc">
+              <label for="role">Fonction *</label>
+              <input type="text" name="role" id="role" v-model="trainer.role" required>
+            </div>
+
+            <div class="form-bloc">
+              <label for="email">Email *</label>
+              <input type="email" name="email" id="email" v-model="trainer.email" required>
+            </div>
+
+            <div class="form-bloc">
+              <label for="skillsSet">Référentiel / Technos *</label>
+              <input type="text" name="skillsSet" id="skillsSet" v-model="trainer.skillsSet" required>
+            </div>
+
+            <div class="form-bloc">
+              <label for="simplonline">Accès Simplonline</label>
+              <input type="checkbox" name="simplonline" id="simplonline" v-model="trainer.simplonline">
+            </div>
+
+            <div class="form-bloc">
+              <label for="soc">Autorisation plateforme SOC</label>
+              <input type="text" name="soc" id="soc" v-model="trainer.soc">
+            </div>
+            
             <div class="form-bloc">
               <button type="submit">Ajouter</button>
             </div>
@@ -65,9 +100,14 @@
     methods : {
       addTrainer(e) {
         e.preventDefault()
+        
         const rowNumber = (this.all.length+2)
-        this.$gapi._libraryInit('client', { discoveryDocs: [ 'https://sheets.googleapis.com/$discovery/rest' ]})
-            .then(client => this.$store.dispatch('trainers/addTrainer', { gclient: client, payload: this.trainer, rowNumber }))
+
+        this.$gapi._libraryInit('client')
+            .then(client => 
+              this.$store.dispatch('trainers/addTrainer', { gclient: client, payload: this.trainer, rowNumber }))
+              this.$modal.hide('addFormateur⋅rice⋅s')
+              this.flash('Ajouté⋅e avec succès !', 'success')
             .catch(error => {
               if (error.status >= 400) {
                 this.flash(this.$getErrorMessage(error.status), 'error')

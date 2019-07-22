@@ -19,7 +19,7 @@ class TrainerModel extends Model {
     this.partnership = payload.partnership || this.partnership
     this.status = payload.status || this.status
     this.simplonline = payload.simplonline || this.simplonline
-    this.activated = payload.activated || this.activated
+    this.soc = payload.soc || this.soc
   }
 
   formatPayloadFromgAPI (payload) {
@@ -34,7 +34,7 @@ class TrainerModel extends Model {
     formattedPayload.partnership = payload[9]
     formattedPayload.status = payload[10]
     formattedPayload.simplonline = payload[17]
-    formattedPayload.activated = payload[18]
+    formattedPayload.soc = payload[18]
 
     return formattedPayload
   }

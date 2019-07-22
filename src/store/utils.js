@@ -4,19 +4,19 @@ const sanitizeString = (str) => str
                             .toLowerCase()
                             .trim()
 
-const ifIncludes = function (payloads, data, key) {
-  if (payloads.length === 0) return data
-  return data.filter((elem) => payloads.includes(elem[key]))
+const ifIncludes = function (payloads, list, key) {
+  if (payloads.length === 0) return list
+  return list.filter((elem) => payloads.includes(elem[key]))
 }
 
-const filterBy = function (payload, data, key) {
-  if (!payload) return data
-  return data.filter((elem) => payload === elem[key])
+const filterBy = function (payload, list, key) {
+  if (!payload) return list
+  return list.filter((elem) => payload === elem[key])
 }
 
-const filterAll = function (payload, data) {
-  if (!payload) return data
-  return data.filter(elem => 
+const filterAll = function (payload, list) {
+  if (!payload) return list
+  return list.filter(elem => 
     Object.keys(elem).some(key => {
       if(typeof elem[key] === 'string') {
         const sanitizedElem = sanitizeString(elem[key])
@@ -30,4 +30,18 @@ const filterAll = function (payload, data) {
 
 const objectToArray = object => Object.keys(object).map(key => object[key])
 
-export default { sanitizeString, ifIncludes, filterBy, filterAll, objectToArray }
+const updateByEmail = (payload, list) => {
+  let index = list.findIndex((elem) => elem.email === payload.email)
+  list[index] = payload
+
+  return list
+}
+
+export default {
+  sanitizeString,
+  ifIncludes,
+  filterBy,
+  filterAll,
+  objectToArray,
+  updateByEmail
+}

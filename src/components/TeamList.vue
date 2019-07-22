@@ -4,7 +4,7 @@
       <ul>
         <li><i class="material-icons-outlined">map</i> {{ slotProps.people.district }}</li>
         <li><i class="material-icons-outlined">location_city</i> {{ slotProps.people.city }}</li>
-        <li><i class="material-icons-outlined">check_circle_outline</i> {{ slotProps.people.activated | isSOCAccountActive }}</li>
+        <li><i class="material-icons-outlined">check_circle_outline</i> {{ slotProps.people.soc | isSOCAccountActive }}</li>
       </ul>
     </template>
     <template v-slot:add>
@@ -48,7 +48,7 @@
     },
     methods: {
       addEmployee () {
-        
+        throw new Error('not implemented')
       }
     },
     components: { PeopleList }
