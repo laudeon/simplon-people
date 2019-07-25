@@ -26,8 +26,8 @@ Vue.config.productionTip = false
 Vue.use(VueGoogleApi, gapiConfig)
 Vue.use(VueFlashMessage, {
   messageOptions: {
-    timeout: 4000,
-    important: true,
+    timeout: 8000,
+    important: false,
     pauseOnInteract: true
   }
 })

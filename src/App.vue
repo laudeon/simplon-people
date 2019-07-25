@@ -145,4 +145,8 @@ i.material-icons-outlined
   margin-right: .5rem
   color: #212121
 
+// Fix flash message z-index
+div.flash__wrapper .flash__message
+  z-index: 1000
+
 </style>

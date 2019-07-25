@@ -8,11 +8,11 @@ const ERROR_MESSAGES = {
 
 class ErrorHandler {
   install (Vue) {
-    this.addMessageGetter(Vue)
+    this.errorMessageFormater(Vue)
   }
 
-  addMessageGetter (Vue) {
-    Vue.prototype.$getErrorMessage = (statusCode) => {
+  errorMessageFormater (Vue) {
+    Vue.prototype.$getErrorMessageFromCode = statusCode => {
       const code = parseInt(statusCode)
       
       if (!Number.isInteger(code)) {
@@ -22,6 +22,20 @@ class ErrorHandler {
       }
 
       return ERROR_MESSAGES[code]
+    }
+
+    Vue.prototype.$getErrorMessage = errorObject => {
+      const hasToString = typeof errorObject.toString() === 'string'
+      const hasMessageProperty = errorObject.hasOwnProperty('message')
+
+      if (
+        !hasToString && 
+        !hasMessageProperty
+      ) {
+        throw new Error('You must pass an Error object with a toString method or either a message property', errorObject)
+      }
+
+      return hasToString ? errorObject.toString() : errorObject.message
     }
   }
 }

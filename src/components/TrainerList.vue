@@ -99,20 +99,47 @@
     },
     methods : {
       addTrainer(e) {
+        let rowNumber
         e.preventDefault()
-        
-        const rowNumber = (this.all.length+2)
+
+        this.$root.$emit('showloader')
 
         this.$gapi._libraryInit('client')
-            .then(client => 
-              this.$store.dispatch('trainers/addTrainer', { gclient: client, payload: this.trainer, rowNumber }))
-              this.$modal.hide('addFormateur⋅rice⋅s')
-              this.flash('Ajouté⋅e avec succès !', 'success')
-            .catch(error => {
-              if (error.status >= 400) {
-                this.flash(this.$getErrorMessage(error.status), 'error')
+          .then(client => this.$store.dispatch('trainers/fetchTrainers', client))
+          .then(() => rowNumber = (this.all.length+2))
+          .then(() => this.$gapi._libraryInit('client'))
+          .then(client => 
+            this.$store.dispatch('trainers/addTrainer', { 
+              gclient: client, 
+              payload: this.trainer, 
+              rowNumber 
+            })
+          )
+          .then(() => this.$gapi._libraryInit('client'))
+          .then(client =>
+            this.$store.dispatch('trainers/addBackgroundToRow', { 
+              gclient: client, 
+              rowNumber, 
+              color: {
+                "red": 1,
+                "green": 1,
+                "blue": 0
               }
             })
+          )
+          .then(() => {
+            this.$root.$emit('stoploader')
+            this.$modal.hide('addFormateur⋅rice⋅s')
+            this.flash('Ajouté⋅e avec succès !', 'success')
+          })
+          .catch(error => {
+            this.$root.$emit('stoploader')
+            if (error.status >= 400) {
+              this.flash(this.$getErrorMessageFromCode(error.status), 'error')
+            } else {
+              this.flash(this.$getErrorMessage(error), 'error')
+            }
+          })
       }
     },
     components: { PeopleList }

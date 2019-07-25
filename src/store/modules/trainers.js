@@ -1,6 +1,8 @@
 import TrainerModel from '../models/TrainerModel'
 import utils from '../utils'
 
+const TRAINER_SHEET_ID = '702284441'
+
 const state = {
   all: [],
   filtered: [],
@@ -15,12 +17,12 @@ const getters = {
 
 const actions = {
   async fetchTrainers ({ commit }, gclient) {
-    return gclient.sheets.spreadsheets.values.get({
+    const response = await gclient.sheets.spreadsheets.values.get({
       spreadsheetId: process.env.VUE_APP_SPREADSHEET_ID,
       range: 'Formateur.rices!A2:T'
-    }).then(response => {
-      commit('fetchTrainers', response.result.values)
     })
+
+    commit('fetchTrainers', response.result.values)
   },
 
   async updateTrainer ({ commit }, { gclient, payload }) {
@@ -32,32 +34,55 @@ const actions = {
     // [[... Cell values], ...more rows]
     values = [utils.objectToArray(payload)]
     
-    return gclient.sheets.spreadsheets.values.update({
+    await gclient.sheets.spreadsheets.values.update({
       spreadsheetId: process.env.VUE_APP_SPREADSHEET_ID,
       range: range,
       valueInputOption,
       resource: { values: values }
-    }).then( () => {
-      commit('updateTrainer', payload)
-    })    
+    })
+    
+    commit('updateTrainer', payload)    
   },
   
   async addTrainer ({ commit }, { gclient, payload, rowNumber }) {
     const valueInputOption = 'RAW'
     const range = 'Formateur.rices!A' + rowNumber
-    let values
-    
     // Expected format:
     // [[... Cell values], ...more rows]
-    values = [utils.objectToArray(payload)]
+    let values = [utils.objectToArray(payload)]
 
-    return gclient.sheets.spreadsheets.values.append({
+    await gclient.sheets.spreadsheets.values.append({
       spreadsheetId: process.env.VUE_APP_SPREADSHEET_ID,
       range,
       valueInputOption,
       resource: { values: values }
-    }).then( () => {
-      commit('addTrainer', payload)
+    })
+
+    commit('addTrainer', payload)
+  },
+
+  async addBackgroundToRow (placeholder, { gclient, rowNumber, color }) {
+    const requests = [
+        {
+          "repeatCell": {
+            "range": {
+              "sheetId": TRAINER_SHEET_ID,
+              "startRowIndex": (rowNumber - 1),
+              "endRowIndex": rowNumber
+            },
+            "cell": {
+              "userEnteredFormat": {
+                "backgroundColor": color,
+              }
+            },
+            "fields": "userEnteredFormat(backgroundColor)"
+          }
+        }
+      ]
+
+    await gclient.sheets.spreadsheets.batchUpdate({
+      spreadsheetId: process.env.VUE_APP_SPREADSHEET_ID,
+      requests: requests
     })
   }
 }

@@ -4,14 +4,14 @@
     
     <section class="people-list" role="list">
       <article v-for="people in list" :key="people.id">
-        <h1 @click="$modal.show(people.email)">
+        <h1 @click="$modal.show(people.lastname+people.firstname)">
           {{ people.firstname }} {{ people.lastname }}
           <br><small>{{ people.role }}</small>
         </h1>
         <p><i class="material-icons-outlined">email</i> {{ people.email }}</p>
         <p><i class="material-icons-outlined">location_city</i> {{ people.city }} - <small>{{ people.partnership }}</small></p>
         
-        <modal :name="people.email" height="auto" width="70%">
+        <modal :name="people.lastname+people.firstname" height="auto" width="70%">
           <div class="modal-container">
             <section class="name">
               <h1>
