@@ -151,16 +151,6 @@
       
       h1
         margin: 0
-  
-  section.form form button
-    padding: .5rem 1rem
-    border: 1px solid #ce0033
-    background: none
-    border-radius: 3px
-    color: #ce0033
-
-    &:hover
-      cursor: pointer
 
   // Transition effect between components
   .component-fade-enter-active, .component-fade-leave-active

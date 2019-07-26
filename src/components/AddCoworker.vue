@@ -8,48 +8,33 @@
     <section class="form">
       <form @submit="addTrainer">
         <div class="form-bloc">
-          <label for="firstname">Prénom *</label>
+          <label for="firstname">Prénom *</label><br>
           <input type="text" name="firstname" id="firstname" v-model="trainer.firstname" required>
         </div>
 
         <div class="form-bloc">
-          <label for="lastname">Nom *</label>
+          <label for="lastname">Nom *</label><br>
           <input type="text" name="lastname" id="lastname" v-model="trainer.lastname" required>
         </div>
 
         <div class="form-bloc">
-          <label for="district">Région *</label>
+          <label for="district">Région *</label><br>
           <input type="text" name="district" id="district" v-model="trainer.district" required>
         </div>
 
         <div class="form-bloc">
-          <label for="city">Fabrique *</label>
+          <label for="city">Fabrique *</label><br>
           <input type="text" name="city" id="city" v-model="trainer.city" required>
         </div>
 
         <div class="form-bloc">
-          <label for="role">Fonction *</label>
+          <label for="role">Fonction *</label><br>
           <input type="text" name="role" id="role" v-model="trainer.role" required>
         </div>
 
         <div class="form-bloc">
-          <label for="email">Email *</label>
+          <label for="email">Email *</label><br>
           <input type="email" name="email" id="email" v-model="trainer.email" required>
-        </div>
-
-        <div class="form-bloc">
-          <label for="skillsSet">Référentiel / Technos *</label>
-          <input type="text" name="skillsSet" id="skillsSet" v-model="trainer.skillsSet" required>
-        </div>
-
-        <div class="form-bloc">
-          <label for="simplonline">Accès Simplonline</label>
-          <input type="checkbox" name="simplonline" id="simplonline" v-model="trainer.simplonline">
-        </div>
-
-        <div class="form-bloc">
-          <label for="soc">Autorisation plateforme SOC</label>
-          <input type="text" name="soc" id="soc" v-model="trainer.soc">
         </div>
         
         <div class="form-bloc">
@@ -71,9 +56,7 @@ export default {
           role: '',
           lastname: '',
           firstname: '',
-          email: '',
-          skillsSet: '',
-          simplonline: 0
+          email: ''
         }
       }
     },
@@ -124,3 +107,27 @@ export default {
     }
   }
 </script>
+
+<style lang="sass" scoped>
+  .v--modal-box.v--modal > div
+    padding: 4em
+
+  form
+    display: flex
+    flex-wrap: wrap
+
+    div.form-bloc
+      flex-grow: 1
+      width: 30%
+      margin: 1%
+
+    button
+      padding: .5rem 1rem
+      border: 1px solid #ce0033
+      background: none
+      border-radius: 3px
+      color: #ce0033
+
+      &:hover
+        cursor: pointer
+</style>
