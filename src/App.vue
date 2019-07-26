@@ -15,12 +15,7 @@
     
     <Searchbar v-if="logged === true" />
     
-    <transition name="component-fade">
-      <keep-alive>
-        <TeamList v-if="logged === true && $store.state.activeList === 'team'" />
-        <TrainerList v-if="logged === true && $store.state.activeList === 'trainers'"/>
-      </keep-alive>
-    </transition>
+    <List v-if="logged === true" :activeList="$store.state.activeList" />
   </div>
 </template>
 
@@ -30,8 +25,7 @@
   import Sidebar from '@/components/Sidebar.vue'
   import Searchbar from '@/components/Searchbar.vue'
   import GoogleSingIn from '@/components/GoogleSignIn.vue'
-  import TeamList from '@/components/TeamList.vue'
-  import TrainerList from '@/components/TrainerList.vue'
+  import List from '@/components/List.vue'
 
   export default {
     name: 'app',
@@ -61,7 +55,7 @@
           this.$root.$emit('showloader')
           this.$gapi._libraryInit('client')
             .then(client => Promise.all([
-              this.$store.dispatch('team/fetchTeam', client),
+              this.$store.dispatch('coworkers/fetchCoworkers', client),
               this.$store.dispatch('trainers/fetchTrainers', client)
             ]))
             .then(() => this.$root.$emit('stoploader'))
@@ -83,8 +77,7 @@
       Sidebar,
       Searchbar,
       GoogleSingIn,
-      TeamList,
-      TrainerList
+      List
     }
   }
 </script>
@@ -131,12 +124,6 @@ ul
 // Fix for the loader
 .vld-overlay .vld-background
   opacity: 1 !important
-
-// Transition effect between components
-.component-fade-enter-active, .component-fade-leave-active
-  transition: opacity .3s
-.component-fade-enter, .component-fade-leave-to, .component-fade-enter-active
-  opacity: 0
 
 // Fix material icon default UI
 i.material-icons-outlined

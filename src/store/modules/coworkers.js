@@ -1,4 +1,4 @@
-import EmployeeModel from '../models/EmployeeModel'
+import CoworkerModel from '../models/CoworkerModel'
 import utils from '../utils'
 
 const state = {
@@ -9,21 +9,21 @@ const state = {
 
 const getters = {
   getByEmail: (state) => 
-    (employeeEmail) => 
-      state.all.find(employee => employee.email === employeeEmail)
+    (coworkerEmail) => 
+      state.all.find(coworker => coworker.email === coworkerEmail)
 }
 
 const actions = {
-  async fetchTeam ({ commit }, gclient) {
+  async fetchCoworkers ({ commit }, gclient) {
     return gclient.sheets.spreadsheets.values.get({
       spreadsheetId: process.env.VUE_APP_SPREADSHEET_ID,
       range: 'DIUT ∕ CME ∕ PP!A2:T'
     }).then(response => {
-      commit('fetchTeam', response.result.values)
+      commit('fetchCoworkers', response.result.values)
     })
   },
 
-  async updateEmployee ({ commit }, { gclient, payload }) {
+  async updateCoworker ({ commit }, { gclient, payload }) {
     const valueRange = gclient.sheets.newValueRange()
 
     // Expected format:
@@ -35,11 +35,11 @@ const actions = {
       spreadsheetId: process.env.VUE_APP_SPREADSHEET_ID,
       range: 'DIUT ∕ CME ∕ PP!A' + payload.rowNumber
     }).then(() => {
-      commit('addEmployee', payload)
+      commit('updateCoworker', payload)
     })    
   },
 
-  async addEmployee ({ commit }, { gclient, payload, rownNumber }) {
+  async addCoworker ({ commit }, { gclient, payload, rownNumber }) {
     const valueRange = gclient.sheets.newValueRange()
 
     // Expected format:
@@ -51,20 +51,20 @@ const actions = {
       spreadsheetId: process.env.VUE_APP_SPREADSHEET_ID,
       range: 'DIUT ∕ CME ∕ PP!A' + rownNumber
     }).then(() => {
-      commit('addEmployee', payload)
+      commit('addCoworker', payload)
     })    
   }
 }
 
 const mutations = {
-  fetchTeam (state, team) {
-    state.all = team.map((employee, key) => new EmployeeModel(employee, key))
+  fetchCoworkers (state, coworkers) {
+    state.all = coworkers.map((coworker, key) => new CoworkerModel(coworker, key))
     state.filtered = state.all
     state.searched = state.filtered
   },
 
-  addEmployee (state, employee) {
-    state.all.push(employee)
+  addCoworker (state, coworker) {
+    state.all.push(coworker)
   }
 }
 

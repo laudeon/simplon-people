@@ -1,50 +1,66 @@
 <template>
   <section class="people">
-    <p>{{ list.length }} {{ people_type }}</p>
+    <p>{{ listLength }} {{ peopleType }}</p>
     
-    <section class="people-list" role="list">
-      <article v-for="people in list" :key="people.id">
-        <h1 @click="$modal.show(people.lastname+people.firstname)">
-          {{ people.firstname }} {{ people.lastname }}
-          <br><small>{{ people.role }}</small>
-        </h1>
-        <p><i class="material-icons-outlined">email</i> {{ people.email }}</p>
-        <p><i class="material-icons-outlined">location_city</i> {{ people.city }} - <small>{{ people.partnership }}</small></p>
-        
-        <modal :name="people.lastname+people.firstname" height="auto" width="70%">
-          <div class="modal-container">
-            <section class="name">
-              <h1>
-                {{ people.firstname }} {{ people.lastname }}
-                <br><small>{{ people.role }}</small>
-              </h1>
-              <p><i class="material-icons-outlined">email</i> {{ people.email }}</p>
-            </section>
-            
-            <section class="more-info">
-              <slot name="modal" v-bind:people="people"></slot>
-            </section>
-          </div>
-        </modal>
-      </article>
-    </section>
+    <keep-alive>
+      <section class="people-list trainers" role="list" v-if="activeList == 'trainers'">
+        <Trainer v-for="trainer in trainers" :key="trainer.id" :trainer="trainer"/>
+      </section>
+    </keep-alive>
+
+    <keep-alive>
+      <section class="people-list coworkers" role="list" v-if="activeList == 'coworkers'">
+        <Coworker v-for="coworker in coworkers" :key="coworker.id" :coworker="coworker"/>
+      </section>
+    </keep-alive>
+
     <div class="button-add">
-      <button class="add" @click="$modal.show(`add${people_type}`)">
+      <button class="add" @click="$modal.show(`add${peopleType}`)">
         +
       </button>
-      <modal :name="'add'+people_type" height="auto" width="70%">
-        <slot name="add"></slot>
+      <modal :name="'add'+peopleType" height="auto" width="70%">
+        <AddTrainer v-if="activeList == 'trainers'"/>
+        <AddCoworker v-if="activeList == 'coworkers'"/>
       </modal>
     </div>
   </section>
 </template>
 
 <script>
+  import { mapState } from 'vuex'
+
+  import Trainer from './Trainer'
+  import AddTrainer from './AddTrainer'
+  import Coworker from './Coworker'
+  import AddCoworker from './AddCoworker'
+
+  const TRAINERS_LIST_NAME = 'Formateur⋅rice⋅s'
+  const COWORKERS_LIST_NAME = 'Collaborateur⋅rice⋅s'
+
   export default {
-    name: 'peopleList',
+    name: 'list',
     props: {
-      list: { type: Array, default: () => [] },
-      people_type: { type: String, default: 'People' }
+      activeList: { type: String, default: 'trainers' },
+    },
+    computed: {
+      ...mapState('trainers', {
+        trainers: state => state.searched,
+      }),
+      ...mapState('coworkers', {
+        coworkers: state => state.searched,
+      }),
+      peopleType () {
+        return this.activeList === 'trainers' ? TRAINERS_LIST_NAME : COWORKERS_LIST_NAME
+      },
+      listLength () {
+        return this.activeList === 'trainers' ? this.trainers.length : this.coworkers.length
+      }
+    },
+    components: {
+      Trainer,
+      Coworker,
+      AddTrainer,
+      AddCoworker
     }
   }
 </script>
@@ -146,4 +162,9 @@
     &:hover
       cursor: pointer
 
+  // Transition effect between components
+  .component-fade-enter-active, .component-fade-leave-active
+    transition: opacity .3s
+  .component-fade-enter, .component-fade-leave-to, .component-fade-enter-active
+    opacity: 0
 </style>

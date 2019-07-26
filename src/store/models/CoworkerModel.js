@@ -1,6 +1,6 @@
 import Model from './Model'
 
-class EmployeeModel extends Model {
+class CoworkerModel extends Model {
   constructor (payload, key) {
     super()
 
@@ -36,4 +36,4 @@ class EmployeeModel extends Model {
   }
 }
 
-export default EmployeeModel
+export default CoworkerModel

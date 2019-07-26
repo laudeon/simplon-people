@@ -1,13 +1,13 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import trainers from './modules/trainers'
-import team from './modules/team'
+import coworkers from './modules/coworkers'
 import me from './modules/me'
 import utils from './utils'
 
 Vue.use(Vuex)
 
-const LISTS = ['trainers', 'team']
+const LISTS = ['trainers', 'coworkers']
 const DISTRICTS = [
   "DROM",
   "Auvergne-Rhône-Alpes",
@@ -36,7 +36,7 @@ export default new Vuex.Store({
     switchList (state, payload) {
       if (!LISTS.includes(payload)) {
         throw new Error(
-          'The passed list does not exist. Possible lists are : trainers, team.'
+          'The passed list does not exist. Possible lists are : trainers, coworkers.'
           )
         }
         
@@ -82,7 +82,7 @@ export default new Vuex.Store({
   },
   modules: {
     trainers,
-    team,
+    coworkers,
     me
   },
   strict: true

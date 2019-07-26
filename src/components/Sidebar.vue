@@ -2,7 +2,7 @@
   <nav id="sidebar">
     <h1>Simplon People</h1>
     <a v-on:click="switchList('trainers')" id="trainers-link" class="list-link active">Formateur⋅rice⋅s</a>
-    <a v-on:click="switchList('team')" id="team-link" class="list-link">DIUT / CME / PP</a>
+    <a v-on:click="switchList('coworkers')" id="coworkers-link" class="list-link">DIUT / CME / PP</a>
     <ul>
       <li v-for="district in districts" v-bind:key="district">
         <a v-on:click="toggleDistricts">{{ district }}</a>
@@ -87,9 +87,10 @@ nav#sidebar
         position: relative
         display: block
         opacity: .9
+        font-size: .9rem
         transition: .2s
 
-        &::after
+        &::before
           content: ''
           display: block
           position: absolute
@@ -100,8 +101,26 @@ nav#sidebar
           background: none
           transition: .2s
 
-        &.active-district::after
+        &::after
+          content: ''
+          display: block
+          position: absolute
+          top: -.1rem
+          right: .5rem
+          height: 1.4rem
+          width: 1.4rem
+          border: 1px solid transparent
+          border-radius: 50%
+          text-align: center
+          color: #ffffff
+          transition: .2s
+
+        &.active-district::before
           background: #ffffff
+        
+        &.active-district::after
+          content: 'x'
+          border-color: #ffffff
         
         &.active-district
           opacity: 1

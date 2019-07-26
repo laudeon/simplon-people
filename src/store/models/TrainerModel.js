@@ -20,6 +20,7 @@ class TrainerModel extends Model {
     this.status = payload.status || this.status
     this.simplonline = payload.simplonline || this.simplonline
     this.soc = payload.soc || this.soc
+    this.discord = payload.discord || this.discord
   }
 
   formatPayloadFromgAPI (payload) {
@@ -35,6 +36,7 @@ class TrainerModel extends Model {
     formattedPayload.status = payload[10]
     formattedPayload.simplonline = payload[17]
     formattedPayload.soc = payload[18]
+    formattedPayload.discord = payload[22]
 
     return formattedPayload
   }

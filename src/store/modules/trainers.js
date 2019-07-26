@@ -19,7 +19,7 @@ const actions = {
   async fetchTrainers ({ commit }, gclient) {
     const response = await gclient.sheets.spreadsheets.values.get({
       spreadsheetId: process.env.VUE_APP_SPREADSHEET_ID,
-      range: 'Formateur.rices!A2:T'
+      range: 'Formateur.rices!A2:W'
     })
 
     commit('fetchTrainers', response.result.values)
