@@ -2,6 +2,8 @@ import TrainerModel from '../models/TrainerModel'
 import utils from '../utils'
 
 const TRAINER_SHEET_ID = '702284441'
+const TRAINER_RANGE_BASE = 'Formateur.rices!A'
+const TRAINER_RANGE_ALL = `${TRAINER_RANGE_BASE}2:W`
 
 const state = {
   all: [],
@@ -19,7 +21,7 @@ const actions = {
   async fetchTrainers ({ commit }, gclient) {
     const response = await gclient.sheets.spreadsheets.values.get({
       spreadsheetId: process.env.VUE_APP_SPREADSHEET_ID,
-      range: 'Formateur.rices!A2:W'
+      range: TRAINER_RANGE_ALL
     })
 
     commit('fetchTrainers', response.result.values)
@@ -27,7 +29,7 @@ const actions = {
 
   async updateTrainer ({ commit }, { gclient, payload }) {
     const valueInputOption = 'RAW'
-    const range = 'Formateur.rices!A' + payload.rowNumber
+    const range = TRAINER_RANGE_BASE + payload.rowNumber
     let values
 
     // Expected format:
@@ -46,7 +48,7 @@ const actions = {
   
   async addTrainer ({ commit }, { gclient, payload, rowNumber }) {
     const valueInputOption = 'RAW'
-    const range = 'Formateur.rices!A' + rowNumber
+    const range = TRAINER_RANGE_BASE + rowNumber
     // Expected format:
     // [[... Cell values], ...more rows]
     let values = [utils.objectToArray(payload)]

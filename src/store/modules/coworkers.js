@@ -1,6 +1,10 @@
 import CoworkerModel from '../models/CoworkerModel'
 import utils from '../utils'
 
+const COWORKER_SHEET_ID = '0'
+const COWORKER_RANGE_BASE = 'DIUT ∕ CdpF ∕ partenaires!A'
+const COWORKER_RANGE_ALL = `${COWORKER_RANGE_BASE}2:T`
+
 const state = {
   all: [],
   filtered: [],
@@ -17,7 +21,7 @@ const actions = {
   async fetchCoworkers ({ commit }, gclient) {
     return gclient.sheets.spreadsheets.values.get({
       spreadsheetId: process.env.VUE_APP_SPREADSHEET_ID,
-      range: 'DIUT ∕ CME ∕ PP!A2:T'
+      range: COWORKER_RANGE_ALL
     }).then(response => {
       commit('fetchCoworkers', response.result.values)
     })
@@ -33,26 +37,52 @@ const actions = {
     return gclient.sheets.spreadsheets.values.update({
       valueRange,
       spreadsheetId: process.env.VUE_APP_SPREADSHEET_ID,
-      range: 'DIUT ∕ CME ∕ PP!A' + payload.rowNumber
+      range: COWORKER_RANGE_BASE + payload.rowNumber
     }).then(() => {
       commit('updateCoworker', payload)
     })    
   },
 
-  async addCoworker ({ commit }, { gclient, payload, rownNumber }) {
-    const valueRange = gclient.sheets.newValueRange()
-
+  async addCoworker ({ commit }, { gclient, payload, rowNumber }) {
+    const valueInputOption = 'RAW'
+    const range = COWORKER_RANGE_BASE + rowNumber
     // Expected format:
     // [[... Cell values], ...more rows]
-    valueRange.values = [utils.objectToArray(payload)]
+    let values = [utils.objectToArray(payload)]
 
-    return gclient.sheets.spreadsheets.values.update({
-      valueRange,
+    await gclient.sheets.spreadsheets.values.update({
       spreadsheetId: process.env.VUE_APP_SPREADSHEET_ID,
-      range: 'DIUT ∕ CME ∕ PP!A' + rownNumber
-    }).then(() => {
-      commit('addCoworker', payload)
-    })    
+      range,
+      valueInputOption,
+      resource: { values },
+    })
+    
+    commit('addCoworker', payload)   
+  },
+
+  async addBackgroundToRow (placeholder, { gclient, rowNumber, color }) {
+    const requests = [
+        {
+          "repeatCell": {
+            "range": {
+              "sheetId": COWORKER_SHEET_ID,
+              "startRowIndex": (rowNumber - 1),
+              "endRowIndex": rowNumber
+            },
+            "cell": {
+              "userEnteredFormat": {
+                "backgroundColor": color,
+              }
+            },
+            "fields": "userEnteredFormat(backgroundColor)"
+          }
+        }
+      ]
+
+    await gclient.sheets.spreadsheets.batchUpdate({
+      spreadsheetId: process.env.VUE_APP_SPREADSHEET_ID,
+      requests: requests
+    })
   }
 }
 

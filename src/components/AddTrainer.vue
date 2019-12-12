@@ -61,6 +61,8 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
     name: 'addTrainer',
     data () {
@@ -77,6 +79,11 @@ export default {
           soc: ''
         }
       }
+    },
+    computed: {
+      ...mapState('trainers', {
+        all: state => state.all,
+      })
     },
     methods : {
       addTrainer(e) {

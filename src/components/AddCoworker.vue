@@ -6,7 +6,7 @@
       </h1>
     </header>
     <section class="form">
-      <form @submit="addTrainer">
+      <form @submit="addCoworker">
         <div class="form-bloc">
           <label for="firstname">Prénom *</label><br>
           <input type="text" name="firstname" id="firstname" v-model="trainer.firstname" required>
@@ -46,8 +46,10 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
-    name: 'addTrainer',
+    name: 'addCoworker',
     data () {
       return {
         trainer: {
@@ -60,6 +62,11 @@ export default {
         }
       }
     },
+    computed: {
+      ...mapState('coworkers', {
+        all: state => state.all,
+      })
+    },
     methods : {
       addCoworker(e) {
         let rowNumber
@@ -71,12 +78,13 @@ export default {
           .then(client => this.$store.dispatch('coworkers/fetchCoworkers', client))
           .then(() => rowNumber = (this.all.length+2))
           .then(() => this.$gapi._libraryInit('client'))
-          .then(client => 
+          .then(client => {
             this.$store.dispatch('coworkers/addCoworker', { 
               gclient: client, 
               payload: this.trainer, 
               rowNumber 
             })
+            }
           )
           .then(() => this.$gapi._libraryInit('client'))
           .then(client =>
