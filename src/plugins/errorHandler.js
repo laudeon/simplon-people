@@ -17,7 +17,7 @@ class ErrorHandler {
       
       if (!Number.isInteger(code)) {
         throw new Error('You must pass an Interget', code)
-      } else if (!ERROR_MESSAGES.hasOwnProperty(code)) {
+      } else if (!Object.prototype.hasOwnProperty.call(ERROR_MESSAGES, code)) {
         throw new Error('The status code passed is not implemented', code)
       }
 
@@ -26,7 +26,7 @@ class ErrorHandler {
 
     Vue.prototype.$getErrorMessage = errorObject => {
       const hasToString = typeof errorObject.toString() === 'string'
-      const hasMessageProperty = errorObject.hasOwnProperty('message')
+      const hasMessageProperty = Object.prototype.hasOwnProperty.call(errorObject, 'message')
 
       if (
         !hasToString && 
