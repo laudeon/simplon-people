@@ -47,7 +47,7 @@ export default {
           .then(() => {
             this.$root.$emit('stoploader')
             this.$modal.hide('addFormateur⋅rice⋅s')
-            this.flash('Ajouté⋅e avec succès !', 'success')
+            this.flash('Modifié⋅e avec succès !', 'success')
           })
           .catch(error => {
             this.$root.$emit('stoploader')
