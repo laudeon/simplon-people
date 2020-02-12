@@ -100,7 +100,31 @@
           &:hover
             cursor: pointer
             box-shadow: 1px 1px 10px rgba(0,0,0,.5)
-  
+
+    div.button-edit
+
+      button.edit
+        background: #ffffff
+        margin-top: 1rem
+        border: 1px solid #cecece
+        border-radius: 3px
+        padding: .8rem 1rem
+        outline: none
+        color: #757575
+        font-size: .8rem
+        transition: .3s
+
+        &:hover
+          cursor: pointer
+          border: 1px solid #ce0033
+          color: #ce0033
+
+        &:focus
+          outline: none
+        
+        &::-moz-focus-inner
+          border: none
+
     section.people-list
       display: flex
       flex-wrap: wrap
