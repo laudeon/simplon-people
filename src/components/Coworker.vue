@@ -33,7 +33,7 @@
   export default {
     name: 'coworker',
     props: {
-      coworker: { type: Object, default: () => {} }
+      coworker: { type: Object, default: () => ({}) }
     }
   }
 </script>

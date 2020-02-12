@@ -100,7 +100,6 @@
           &:hover
             cursor: pointer
             box-shadow: 1px 1px 10px rgba(0,0,0,.5)
-
   
     section.people-list
       display: flex

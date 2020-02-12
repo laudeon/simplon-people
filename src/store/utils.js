@@ -4,17 +4,17 @@ const sanitizeString = (str) => str
                             .toLowerCase()
                             .trim()
 
-const ifIncludes = function (payloads, list, key) {
+const ifIncludes = (payloads, list, key) => {
   if (payloads.length === 0) return list
   return list.filter((elem) => payloads.includes(elem[key]))
 }
 
-const filterBy = function (payload, list, key) {
+const filterBy = (payload, list, key) => {
   if (!payload) return list
   return list.filter((elem) => payload === elem[key])
 }
 
-const filterAll = function (payload, list) {
+const filterAll = (payload, list) => {
   if (!payload) return list
   return list.filter(elem => 
     Object.keys(elem).some(key => {

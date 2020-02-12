@@ -6,7 +6,7 @@ class CoworkerModel extends Model {
 
     if (Array.isArray(payload)) payload = this.formatPayloadFromgAPI(payload)
 
-    this.rowNumber = key + 1 // plus two titles rows at the doc start
+    this.rowNumber = key + 2 // plus two title rows at the doc start
     this.id = payload.id || this.id
     this.firstname = payload.firstname || this.firstname
     this.lastname = payload.lastname || this.lastname

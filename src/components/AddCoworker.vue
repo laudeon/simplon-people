@@ -105,6 +105,7 @@ export default {
           })
           .catch(error => {
             this.$root.$emit('stoploader')
+            this.$modal.hide('addCollaborateur⋅rice⋅s')
             if (error.status >= 400) {
               this.flash(this.$getErrorMessageFromCode(error.status), 'error')
             } else {

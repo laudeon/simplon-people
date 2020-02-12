@@ -1,7 +1,7 @@
 const ERROR_MESSAGES = {
   400: 'Votre requête est mal formatée',
   401: 'Vous devez vous (re)connecter pour accéder au contenu',
-  403: 'Vous n\'êtes pas autorisé à accéder à ce contenu',
+  403: 'Vous n\'êtes pas autorisé à accéder à ce contenu et/ou effectuer cette action',
   404: 'Impossible de trouver ce que vous demandez',
   500: 'Une erreur technique est survenue, la loose...'
 }

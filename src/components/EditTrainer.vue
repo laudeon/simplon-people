@@ -2,67 +2,45 @@
   <div>
     <header>
       <h1>
-        Ajouter un⋅e formateur⋅rice
+        Modifier les informations d'un⋅e formateur⋅rice
       </h1>
     </header>
     <section class="form">
-      <TrainerForm :trainer="trainer" :submitHandler="addTrainer"/>
+      <TrainerForm :trainer="trainer" :submitHandler="editTrainer"/>
     </section>
   </div>
 </template>
 
 <script>
-import { mapState } from 'vuex'
-
 import TrainerForm from './TrainerForm'
 
 export default {
-    name: 'addTrainer',
-    data () {
-      return {
-        trainer: {
-          district: '',
-          city: '',
-          role: '',
-          lastname: '',
-          firstname: '',
-          email: '',
-          skillSet: ''
-        }
-      }
-    },
-    computed: {
-      ...mapState('trainers', {
-        all: state => state.all,
-      })
+    name: 'editTrainer',
+    props: {
+      trainer: {type: Object, default: () => ({})}
     },
     methods : {
-      addTrainer(e) {
-        let rowNumber
+      editTrainer(e) {
         e.preventDefault()
 
         this.$root.$emit('showloader')
 
         this.$gapi._libraryInit('client')
-          .then(client => this.$store.dispatch('trainers/fetchTrainers', client))
-          .then(() => rowNumber = (this.all.length+2))
           .then(() => this.$gapi._libraryInit('client'))
           .then(client => 
-            this.$store.dispatch('trainers/addTrainer', { 
+            this.$store.dispatch('trainers/updateTrainer', { 
               gclient: client, 
-              payload: this.trainer, 
-              rowNumber 
-            })
-          )
-          .then(() => this.$gapi._libraryInit('client'))
-          .then(client =>
-            this.$store.dispatch('trainers/addBackgroundToRow', { 
-              gclient: client, 
-              rowNumber, 
-              color: {
-                "red": 1,
-                "green": 1,
-                "blue": 0
+              payload: {
+                rawData: this.trainer,
+                data: {
+                  district: this.trainer.district,
+                  city: this.trainer.city,
+                  role: this.trainer.role,
+                  lastname: this.trainer.lastname,
+                  firstname: this.trainer.firstname,
+                  email: this.trainer.email,
+                  skillSet: this.trainer.skillSet
+                }
               }
             })
           )

@@ -8,12 +8,13 @@ class TrainerModel extends Model {
 
     if (Array.isArray(payload)) payload = this.formatPayloadFromgAPI(payload)
 
-    this.rowNumber = key + 1 // plus two titles rows at the doc start
+    this.rowNumber = key + 2 // plus two title rows at the doc start
     this.id = payload.id || this.id
     this.firstname = payload.firstname || this.firstname
     this.lastname = payload.lastname || this.lastname
     this.email = payload.email || this.email
     this.role = payload.role || this.role
+    this.skillSet = payload.skillSet || this.skillSet
     this.district = payload.district || this.district
     this.city = payload.city || this.city
     this.partnership = payload.partnership || this.partnership
@@ -31,7 +32,8 @@ class TrainerModel extends Model {
     formattedPayload.email = payload[5]
     formattedPayload.district = payload[0]
     formattedPayload.city = payload[1]
-    formattedPayload.role = payload[6]
+    formattedPayload.skillSet = payload[6]
+    formattedPayload.role = payload[2]
     formattedPayload.partnership = payload[9]
     formattedPayload.status = payload[10]
     formattedPayload.simplonline = payload[17]

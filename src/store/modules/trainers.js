@@ -29,21 +29,19 @@ const actions = {
 
   async updateTrainer ({ commit }, { gclient, payload }) {
     const valueInputOption = 'RAW'
-    const range = TRAINER_RANGE_BASE + payload.rowNumber
-    let values
-
+    const range = TRAINER_RANGE_BASE + payload.rawData.rowNumber
     // Expected format:
     // [[... Cell values], ...more rows]
-    values = [utils.objectToArray(payload)]
+    const values = [utils.objectToArray(payload.data)]
     
     await gclient.sheets.spreadsheets.values.update({
       spreadsheetId: process.env.VUE_APP_SPREADSHEET_ID,
-      range: range,
+      range,
       valueInputOption,
-      resource: { values: values }
+      resource: { values }
     })
     
-    commit('updateTrainer', payload)    
+    commit('updateTrainer', payload.rawData)    
   },
   
   async addTrainer ({ commit }, { gclient, payload, rowNumber }) {
@@ -51,13 +49,13 @@ const actions = {
     const range = TRAINER_RANGE_BASE + rowNumber
     // Expected format:
     // [[... Cell values], ...more rows]
-    let values = [utils.objectToArray(payload)]
+    const values = [utils.objectToArray(payload)]
 
     await gclient.sheets.spreadsheets.values.append({
       spreadsheetId: process.env.VUE_APP_SPREADSHEET_ID,
       range,
       valueInputOption,
-      resource: { values: values }
+      resource: { values }
     })
 
     commit('addTrainer', payload)
@@ -92,8 +90,8 @@ const actions = {
 const mutations = {
   fetchTrainers (state, trainers) {
     state.all = trainers.map((trainer, key) => new TrainerModel(trainer, key))
-    state.filtered = state.all
-    state.searched = state.filtered
+    state.filtered = [...state.all]
+    state.searched = [...state.filtered]
   },
 
   addTrainer (state, trainer) {
@@ -101,9 +99,9 @@ const mutations = {
   },
 
   updateTrainer (state, trainer) {
-    utils.updateByEmail(trainer, state.all)
-    utils.updateByEmail(trainer, state.filtered)
-    utils.updateByEmail(trainer, state.searched)
+    state.all = [...utils.updateByEmail(trainer, state.all)]
+    state.filtered = [...utils.updateByEmail(trainer, state.filtered)]
+    state.searched = [...utils.updateByEmail(trainer, state.searched)]
   }
 }
 
